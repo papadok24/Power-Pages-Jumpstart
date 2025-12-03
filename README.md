@@ -195,6 +195,9 @@ pac solution export --path ./src/solution
 
 ### Day 1: Foundation
 
+- **[Site Provisioning Guide](docs/day-1/site-provisioning-guide.md)** - Step-by-step instructions for creating the Power Pages site with Microsoft Entra ID authentication
+- **[Home Page Build](docs/day-1/home-page-build.md)** - Theme/brand setup and building the home page with Design Studio low-code builder
+- **[User Stories](docs/day-1/user-stories.md)** - 8 Liquid-focused user stories covering Pets, Appointments, and Services interactions
 - **[Data Model Design](docs/day-1/data-model.md)** - Complete Dataverse entity schemas, relationships, and table permissions for Pets, Services, Appointments, and Documents
 - **[Recurring Appointments Guide](docs/day-1/recurring-appointments.md)** - OOTB RecurringAppointmentMaster integration guide with patterns and examples
 
