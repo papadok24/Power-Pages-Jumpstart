@@ -310,6 +310,22 @@ adx_webfile:
   DisplayName: Logo-sm-64.png
   CheckSum: 8302b907bb2832e7d84c39e969fdfc842d144d2dc9bc4c1fda02f25fe37bb41f
   IsDeleted: false
+- RecordId: 35a66a2a-33f5-418a-a540-8f171ee068b9
+  DisplayName: Needle-outline.png
+  CheckSum: f8c86ce372015362498f89b08843ceed4fc6d9cb1662aa45fe08164b335cf2b0
+  IsDeleted: false
+- RecordId: 4ab5eb0f-9d96-4356-92a5-51fc8617fc3d
+  DisplayName: Care-outline.png
+  CheckSum: 7d7e3436e2ffc607c7ef128d8a18e87d6d81c90d6082acdc113d7cc1b4a4b025
+  IsDeleted: false
+- RecordId: 655eb332-65bb-49e1-9486-40c88c169154
+  DisplayName: Siren-outline.png
+  CheckSum: e41946a1b52e1dbd7103df15fa4b4d4c7cfb8a357615cfdfda9c4ad0c3626495
+  IsDeleted: false
+- RecordId: 6f01a2c9-c757-4983-85e2-56299f5916bf
+  DisplayName: Vet-wearing-white-coat-examining-dog-with-hands-around-dog’s-chest-and-neck,-with-another-person-holding-dogs’-paw.jpg
+  CheckSum: ec0beff5bc0db352c0b63cbb2e60221af6af704b33cc6c8f8307a1b6cc9e8871
+  IsDeleted: false
 - RecordId: 81582b1f-529f-9ec8-46ff-7591c62f276f
   DisplayName: GREY (1)
   CheckSum: 4c6d92d967affc1472e1016da82b6d8c531d240678f0df37fbf8e55a41ebe437
@@ -387,7 +403,7 @@ adx_webpage:
   IsDeleted: false
 - RecordId: 546f67e6-dae9-434b-96d7-f63a5399ac61
   DisplayName: Home
-  CheckSum: f52a33ce160f93bfca5b5b0de28df5eac302dc68304e6c7e5e79c8690bfafbdf
+  CheckSum: 5092d2c149d78fdb122b835b8cd28b410afda7e63bd580f099b700dda504d68d
   IsDeleted: false
 - RecordId: 59b103ef-f8ab-4fbe-b198-ff75b0a80ec4
   DisplayName: Search
@@ -510,6 +526,14 @@ adx_webtemplate:
   CheckSum: 5b78a2d91ce9814e306c3d0a7fa1fb627f8d1a5ff588d4d6b8ac5909d5e023f9
   IsDeleted: false
 annotation:
+- RecordId: 018ae764-f5cf-f011-8543-6045bd040e0a
+  DisplayName: Vet-wearing-white-coat-examining-dog-with-hands-around-dog%E2%80%99s-chest-and-neck%2C-with-another-person-holding-dogs%E2%80%99-paw.jpg
+  CheckSum: a37825149af8a2c8c7e459815c04e39c0153ee2b2ac91095677a5ad6b9eceee7
+  IsDeleted: false
+- RecordId: 02cf6439-f8cf-f011-8543-6045bd040e0a
+  DisplayName: Needle-outline.png
+  CheckSum: dad3f6e8aa3a54d3dc9e75e4b56641171e4bc19d5f138285b2dff4424ebdc370
+  IsDeleted: false
 - RecordId: 3a827f9c-f2cf-f011-8543-6045bd040e0a
   DisplayName: GREY%20(1)
   CheckSum: c61476c7da511b68d69fe0a34bc24081041be59814b8fe66ddaf94e624b50242
@@ -518,9 +542,17 @@ annotation:
   DisplayName: portalbasictheme.css
   CheckSum: d6ade3181bc9bd4fb49aaa9c6e987b570580e9c4b8bbca2261763c0649068a54
   IsDeleted: false
+- RecordId: 60080f92-f7cf-f011-8543-6045bd040e0a
+  DisplayName: Care-outline.png
+  CheckSum: 2f33968393be8ba2c8821aa1cef06fe5198e272187713820811a264b7cbe1b90
+  IsDeleted: false
 - RecordId: 68dc59c6-f1cf-f011-8543-6045bd040e0a
   DisplayName: pawsfirst-logo-final.png
   CheckSum: 3b546edef150eebf25a33ffab399d285818ce49531431bc33ae8e1e3be7d1d62
+  IsDeleted: false
+- RecordId: 7e342691-f8cf-f011-8543-6045bd040e0a
+  DisplayName: Siren-outline.png
+  CheckSum: e320bf7a9ca9a5efd51a3656d11792b9d3bb38f7d0aac3d607d217cad700ab29
   IsDeleted: false
 - RecordId: 8d44e050-f3cf-f011-8543-6045bd040e0a
   DisplayName: favicon.ico

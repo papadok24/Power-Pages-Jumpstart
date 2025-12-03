@@ -209,9 +209,9 @@ The PawsFirst home page will include these sections built with the Design Studio
 - **Description**: "Keep your pet protected with our complete vaccination services."
 - **Footer**: "$45 | 15 minutes"
 
-**Service Card 3 - Grooming:**
-- **Title**: "Grooming"
-- **Description**: "Professional grooming services to keep your pet looking and feeling great."
+**Service Card 3 - Surgery:**
+- **Title**: "Surgery"
+- **Description**: "Professional Surgery services to keep your pet looking and feeling great."
 - **Footer**: "$50 | 60 minutes"
 
 ### Step 3.4: Build Why Choose Us Section
