@@ -13,10 +13,10 @@
   adx_value: false
 - adx_name: Authentication/Registration/LocalLoginEnabled
   adx_sitesettingid: 0d846d32-8e97-4276-a736-bb1ac16f8334
-  adx_value: true
+  adx_value: false
 - adx_name: Search/Enabled
   adx_sitesettingid: 10c72297-fe8d-4b21-9b51-896bf6ebe77a
-  adx_value: true
+  adx_value: false
 - adx_description: Denies use of the portal to minors. By default, it is set to false.
   adx_name: Authentication/Registration/DenyMinors
   adx_sitesettingid: 10ee1085-19ea-44e5-bd08-f248868e5808
@@ -39,6 +39,9 @@
   adx_name: Search/FacetedView
   adx_sitesettingid: 1cccb278-ee60-4f9f-b297-374660e83519
   adx_value: True
+- adx_name: Search/EnableSuggestion
+  adx_sitesettingid: 30a91ce3-c1d7-4937-8b1b-398e37298746
+  adx_value: false
 - adx_description: Set whether the header web template is output cached.
   adx_name: Header/OutputCache/Enabled
   adx_sitesettingid: 348ea463-78c2-47e1-8806-7f0456e3fe5b
@@ -53,6 +56,9 @@
   adx_value: False
 - adx_name: Search/IndexNotesAttachments
   adx_sitesettingid: 3e04a980-5042-4c05-b4e1-515cce5dad54
+  adx_value: false
+- adx_name: Search/EnableGenerativeAI
+  adx_sitesettingid: 42a4f8f4-535f-4d2c-b962-ab4cc8ec25ab
   adx_value: false
 - adx_description: 'The amount of time the IP address will have to wait if Authentication/LoginThrottling/MaxInvaildAttemptsFromIPAddress occur within Authentication/LoginThrottling/MaxAttemptsTimeLimitTimeSpan amount of time. Default: 00:10:00 (10 mins)'
   adx_name: Authentication/LoginThrottling/IpAddressTimeoutTimeSpan
@@ -155,7 +161,7 @@
   adx_value: false
 - adx_name: Authentication/Registration/OpenRegistrationEnabled
   adx_sitesettingid: ef97b09f-3f67-40fc-8b16-e8c547a4b67d
-  adx_value: true
+  adx_value: false
 - adx_name: Search/IndexQueryName
   adx_sitesettingid: f03ad96d-4867-4046-a30d-53167175c905
   adx_value: Portal Search

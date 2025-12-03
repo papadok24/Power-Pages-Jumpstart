@@ -127,11 +127,11 @@ adx_sitesetting:
   IsDeleted: false
 - RecordId: 0d846d32-8e97-4276-a736-bb1ac16f8334
   DisplayName: Authentication/Registration/LocalLoginEnabled
-  CheckSum: 3bc0a7de89294be71538b393f9c98d863e5c5d98ecb5d217e6f5f661bb65f7b8
+  CheckSum: 73dd90c61f047e6d83e5f841eb4ce34a763f182a4eccf67d406ca3f561f21d81
   IsDeleted: false
 - RecordId: 10c72297-fe8d-4b21-9b51-896bf6ebe77a
   DisplayName: Search/Enabled
-  CheckSum: fcf0ab1affd712a5f022a0ca415b3ac572007b2cabdf7731715aabf054033ff1
+  CheckSum: 70dcd29bed8b1cf6da57f9a86d06b28af65b6ac2d71700691339013f25eb8dc0
   IsDeleted: false
 - RecordId: 10ee1085-19ea-44e5-bd08-f248868e5808
   DisplayName: Authentication/Registration/DenyMinors
@@ -153,6 +153,10 @@ adx_sitesetting:
   DisplayName: Search/FacetedView
   CheckSum: 9003d451756cdf74ae6d445fd9d91e53d2d3efabf9a5e080e3660e90a12c1c1d
   IsDeleted: false
+- RecordId: 30a91ce3-c1d7-4937-8b1b-398e37298746
+  DisplayName: Search/EnableSuggestion
+  CheckSum: 3d70e57736e7ecbd9503b412973c4b2058abc91824ef3c6c78410ff3989836f6
+  IsDeleted: false
 - RecordId: 348ea463-78c2-47e1-8806-7f0456e3fe5b
   DisplayName: Header/OutputCache/Enabled
   CheckSum: f6ecea8468dff1bf591759e9db38d7ca305c7c32f1a5f34697c1908bed840a5c
@@ -168,6 +172,10 @@ adx_sitesetting:
 - RecordId: 3e04a980-5042-4c05-b4e1-515cce5dad54
   DisplayName: Search/IndexNotesAttachments
   CheckSum: 5556e184ab8f2bf18cc3dc1bc7a56f86edba4d9297f5451a3831cb0f70102145
+  IsDeleted: false
+- RecordId: 42a4f8f4-535f-4d2c-b962-ab4cc8ec25ab
+  DisplayName: Search/EnableGenerativeAI
+  CheckSum: 2706c88c2740a213c913154236374efcc670a48a96bb9ecf2b6a3a4bc729c3fa
   IsDeleted: false
 - RecordId: 44804a94-f5fe-4244-89e8-f4873ddccc79
   DisplayName: Authentication/LoginThrottling/IpAddressTimeoutTimeSpan
@@ -295,7 +303,7 @@ adx_sitesetting:
   IsDeleted: false
 - RecordId: ef97b09f-3f67-40fc-8b16-e8c547a4b67d
   DisplayName: Authentication/Registration/OpenRegistrationEnabled
-  CheckSum: becd9a436c5a308ec1deb0c00e20f0eec5c9511972bec9258989ceb1589b4e63
+  CheckSum: eb90bd565714a62644d00cc202060c04578c3f0ab636af9fd1a4799922d5b0fd
   IsDeleted: false
 - RecordId: f03ad96d-4867-4046-a30d-53167175c905
   DisplayName: Search/IndexQueryName
@@ -306,6 +314,14 @@ adx_sitesetting:
   CheckSum: fa1b1c5a43acfe75bdd8843ab84cc92446950df6b9907da9b1fb3689d3d9232d
   IsDeleted: false
 adx_webfile:
+- RecordId: 03f463c2-43e2-453f-a8ce-3aee1a92145d
+  DisplayName: Monthly-calendar-outline-2.png
+  CheckSum: 5776e6fa108d26a9c53a1e1822ed2632288195647959eac8e791c9ee92739760
+  IsDeleted: false
+- RecordId: 089ea689-1a99-4ea3-a6bf-ed8b89fc82c7
+  DisplayName: Stethoscope-outline.png
+  CheckSum: dbadc7bb27a31dd5026bbf96e961c68b33a8121d127a1be6f9c2904d3b5cfaa7
+  IsDeleted: false
 - RecordId: 33334c57-7f8a-412f-b5fd-ea1b5033e439
   DisplayName: Logo-sm-64.png
   CheckSum: 8302b907bb2832e7d84c39e969fdfc842d144d2dc9bc4c1fda02f25fe37bb41f
@@ -314,17 +330,41 @@ adx_webfile:
   DisplayName: Needle-outline.png
   CheckSum: f8c86ce372015362498f89b08843ceed4fc6d9cb1662aa45fe08164b335cf2b0
   IsDeleted: false
+- RecordId: 3e8d038e-442d-48d4-bd21-e52d72653fb0
+  DisplayName: Chat-outline.png
+  CheckSum: cba74fd2a889e70e94f356dbb58f1274a2829345e208e98f0cd28183fac2ce15
+  IsDeleted: false
 - RecordId: 4ab5eb0f-9d96-4356-92a5-51fc8617fc3d
   DisplayName: Care-outline.png
   CheckSum: 7d7e3436e2ffc607c7ef128d8a18e87d6d81c90d6082acdc113d7cc1b4a4b025
+  IsDeleted: false
+- RecordId: 4e7515c1-1553-4373-ad16-edd8c83b7edc
+  DisplayName: Hospital-outline.png
+  CheckSum: 2f831e93c3c9a2e8eb0958fcc89a4f407701a92b9df3ae947e682ed681210a4d
+  IsDeleted: false
+- RecordId: 5ac3468d-32c3-4017-aeb7-4c348da63c08
+  DisplayName: Clipboard-outline.png
+  CheckSum: fc70cb51a6bba91f98a952b8f4d8c38431d811681af5acaef664b0ed05c5e3de
+  IsDeleted: false
+- RecordId: 6210f2ab-33a9-4a2e-a2ce-ed341f4b0763
+  DisplayName: Shield-Tick-outline.png
+  CheckSum: 2337e44d2f125e86bfcd24313886b5a0012ba8c22efd3b9b44ffef854eff9974
   IsDeleted: false
 - RecordId: 655eb332-65bb-49e1-9486-40c88c169154
   DisplayName: Siren-outline.png
   CheckSum: e41946a1b52e1dbd7103df15fa4b4d4c7cfb8a357615cfdfda9c4ad0c3626495
   IsDeleted: false
+- RecordId: 660412c4-81a2-40b8-977f-51d2b21e1f42
+  DisplayName: Team-of-four-people-using-computer-in-call-center.jpg
+  CheckSum: 653fd4b2da5ed806bde4ed8a367aad4802d3474699390d63ee168dfd0ba7b976
+  IsDeleted: false
 - RecordId: 6f01a2c9-c757-4983-85e2-56299f5916bf
   DisplayName: Vet-wearing-white-coat-examining-dog-with-hands-around-dog’s-chest-and-neck,-with-another-person-holding-dogs’-paw.jpg
   CheckSum: ec0beff5bc0db352c0b63cbb2e60221af6af704b33cc6c8f8307a1b6cc9e8871
+  IsDeleted: false
+- RecordId: 78e92b18-be47-40d7-b3bf-c9385f5151f2
+  DisplayName: Close-up-of-Open-sign-on-glass-door.jpg
+  CheckSum: 78f3fb5b41aafd3f72087156bcd8a84bd3729ab8f3521aeaac9fb5eca29744ed
   IsDeleted: false
 - RecordId: 81582b1f-529f-9ec8-46ff-7591c62f276f
   DisplayName: GREY (1)
@@ -333,6 +373,10 @@ adx_webfile:
 - RecordId: 85129ff9-c6ae-4d6e-83a7-6c3ac1ab335a
   DisplayName: bootstrap.min.css
   CheckSum: d7c90261a8bdbe4083741b8f90c50438d2a864e76606ada1ee1518bd29092afc
+  IsDeleted: false
+- RecordId: 859b1792-44f3-4cc4-ab79-2584bd542dac
+  DisplayName: Paw-prints-outline.png
+  CheckSum: 44094eb3ef178d422f09cb5d1f01ddacb199b778bda50786fef0827d8947c58a
   IsDeleted: false
 - RecordId: 8b44e050-f3cf-f011-8543-6045bd040e0a
   DisplayName: favicon.ico
@@ -346,6 +390,10 @@ adx_webfile:
   DisplayName: theme.css
   CheckSum: 28d0398227bc0540c7cfd949e904becdb5f2ff3331b9c4e845d58e0a99cb9a25
   IsDeleted: false
+- RecordId: a39291e2-ca0c-4662-b28d-c60476252bab
+  DisplayName: Monthly-calendar-outline.png
+  CheckSum: 6d3a2aed8187e5cf6bb253416a11db586cde13b9470218abb006bfd1ed766a0d
+  IsDeleted: false
 - RecordId: b4e9f21f-f484-4a9c-85d0-caf5b33a56e8
   DisplayName: Cat-PC.png
   CheckSum: ea5cbfbd42081355082ab89d2e672c98a773f8e5077d00d0beacc4bc37fb3cc9
@@ -353,6 +401,14 @@ adx_webfile:
 - RecordId: b8486b9f-f917-4108-adbf-033197574d4a
   DisplayName: pawsfirst-logo-final.png
   CheckSum: 82812a47debad338486a015da3638736db1cc6be39a133086a5d85925ba8a0ae
+  IsDeleted: false
+- RecordId: bf2a7176-1b03-45ee-9c45-441f2a6d5752
+  DisplayName: Woman-on-video-call-in-glass-office.jpg
+  CheckSum: 149b6250b206f3b8d064cfb2ee292cb4412e68310a9098e583c7ed7737cd319a
+  IsDeleted: false
+- RecordId: fcc50e82-f31e-4927-bc58-1a3a85918889
+  DisplayName: Locator-flag-on-a-city-map.jpg
+  CheckSum: f4ceb31a23315b0b96eef20eb41491acc305b9708df81bb69f91dcfa17c32471
   IsDeleted: false
 adx_weblink:
 - RecordId: 00f51a22-96f8-483c-b4af-3907df55146d
@@ -403,7 +459,7 @@ adx_webpage:
   IsDeleted: false
 - RecordId: 546f67e6-dae9-434b-96d7-f63a5399ac61
   DisplayName: Home
-  CheckSum: 5092d2c149d78fdb122b835b8cd28b410afda7e63bd580f099b700dda504d68d
+  CheckSum: 4a8a4eaf51ff38e3585d568d84f1f811550544ddc82a7f3e7d2ce8f5c3d57e87
   IsDeleted: false
 - RecordId: 59b103ef-f8ab-4fbe-b198-ff75b0a80ec4
   DisplayName: Search
@@ -451,7 +507,7 @@ adx_webrole:
 adx_website:
 - RecordId: 33dc553c-860f-48ba-b0e6-33e079660f2c
   DisplayName: PawsFirst - pawsfirst-pa911
-  CheckSum: 3e49e18545acedefb574eadb5991250223a98d4f042657dcfe8f547203f60653
+  CheckSum: cc084b3202bc5449aaed8c28a45ce40b7d4a04e27414f63e5e9b9ae0c38e477d
   IsDeleted: false
 adx_websiteaccess:
 - RecordId: 0661893c-2fbb-4426-9387-72b0ffc039d9
@@ -534,6 +590,10 @@ annotation:
   DisplayName: Needle-outline.png
   CheckSum: dad3f6e8aa3a54d3dc9e75e4b56641171e4bc19d5f138285b2dff4424ebdc370
   IsDeleted: false
+- RecordId: 2b8f3515-48d0-f011-bbd3-6045bd05b173
+  DisplayName: Monthly-calendar-outline.png
+  CheckSum: fe9d93305192cf6c820fd0b95c2e5645bd323582c23ddcc5ccefdf026d1eda84
+  IsDeleted: false
 - RecordId: 3a827f9c-f2cf-f011-8543-6045bd040e0a
   DisplayName: GREY%20(1)
   CheckSum: c61476c7da511b68d69fe0a34bc24081041be59814b8fe66ddaf94e624b50242
@@ -542,9 +602,17 @@ annotation:
   DisplayName: portalbasictheme.css
   CheckSum: d6ade3181bc9bd4fb49aaa9c6e987b570580e9c4b8bbca2261763c0649068a54
   IsDeleted: false
+- RecordId: 402f33ee-47d0-f011-bbd3-6045bd05b173
+  DisplayName: Stethoscope-outline.png
+  CheckSum: 53bc55a7a90bb83b27915398c001f31e4e33d6f7f28d2fd2d7f4b13bc2c0e220
+  IsDeleted: false
 - RecordId: 60080f92-f7cf-f011-8543-6045bd040e0a
   DisplayName: Care-outline.png
   CheckSum: 2f33968393be8ba2c8821aa1cef06fe5198e272187713820811a264b7cbe1b90
+  IsDeleted: false
+- RecordId: 62bcc4a4-4ed0-f011-8543-002248095213
+  DisplayName: Woman-on-video-call-in-glass-office.jpg
+  CheckSum: 419918626fd3ce9f1d54e87d52c9bfc3bf4a83c142590f868fac2bbd52f52d6b
   IsDeleted: false
 - RecordId: 68dc59c6-f1cf-f011-8543-6045bd040e0a
   DisplayName: pawsfirst-logo-final.png
@@ -554,9 +622,21 @@ annotation:
   DisplayName: Siren-outline.png
   CheckSum: e320bf7a9ca9a5efd51a3656d11792b9d3bb38f7d0aac3d607d217cad700ab29
   IsDeleted: false
+- RecordId: 7e93e2d0-4bd0-f011-bbd3-6045bd05b173
+  DisplayName: Clipboard-outline.png
+  CheckSum: 40ac8c45ad6beb4da702e98c6347463045dc4fb365afa1d4d431647dd4a19259
+  IsDeleted: false
 - RecordId: 8d44e050-f3cf-f011-8543-6045bd040e0a
   DisplayName: favicon.ico
   CheckSum: a9e7cbcb8a95324cd95b7be73f2a3033c7a683f31fbe05b698e81d87968f44ca
+  IsDeleted: false
+- RecordId: 939f9960-4ad0-f011-bbd3-6045bd05b173
+  DisplayName: Paw-prints-outline.png
+  CheckSum: 663adf3a11afe836c14d3ecebdd3607f2f28bba1d68b79438ec9f05530a40e14
+  IsDeleted: false
+- RecordId: 9da11b23-48d0-f011-bbd3-6045bd05b173
+  DisplayName: Shield-Tick-outline.png
+  CheckSum: 3444f373990c908b923fba1ad4c40e20d05d3a968d3c696a8ce76acb083c780c
   IsDeleted: false
 - RecordId: 9ef097d7-edcf-f011-8543-6045bd040e0a
   DisplayName: theme.css
@@ -570,6 +650,10 @@ annotation:
   DisplayName: Logo-sm-64.png
   CheckSum: bc6114c4ff0fb7030805a5e420bf0d77961bc7ce9081c4dc8acb76cf075551e6
   IsDeleted: false
+- RecordId: a6de5ee2-4bd0-f011-bbd3-6045bd05b173
+  DisplayName: Chat-outline.png
+  CheckSum: a4365c75d0dea3b1f5216526e723b0629417050e9996073afd89ac8be66c2910
+  IsDeleted: false
 - RecordId: a7f097d7-edcf-f011-8543-6045bd040e0a
   DisplayName: portalbasictheme.css
   CheckSum: 766090e253a285c500b4206e7db45d1e7bee107b60acc5db09a1f7e491162103
@@ -577,4 +661,24 @@ annotation:
 - RecordId: acf097d7-edcf-f011-8543-6045bd040e0a
   DisplayName: bootstrap.min.css
   CheckSum: ebb0a96658aa03f859ee241f55d6a35159b62350b913769c0708b330828fda97
+  IsDeleted: false
+- RecordId: c068c683-4ed0-f011-8543-002248095213
+  DisplayName: Close-up-of-Open-sign-on-glass-door.jpg
+  CheckSum: abcfb4797a5d72ad3a594c13486aa5fd1c515a59842f4c5a6bc5f5a1eae1fab2
+  IsDeleted: false
+- RecordId: d7a66424-4bd0-f011-bbd3-6045bd05b173
+  DisplayName: Monthly-calendar-outline-2.png
+  CheckSum: 55338645c42da1323fc3654708b231075a6591ee28aec885c7a5ae782e9cc1cf
+  IsDeleted: false
+- RecordId: e6351076-4ed0-f011-8543-002248095213
+  DisplayName: Team-of-four-people-using-computer-in-call-center.jpg
+  CheckSum: f2bf5acee29de6303259bd054e49e50c113c59a5e8285d96e1a90ba64e2cf05a
+  IsDeleted: false
+- RecordId: ea2c5362-4ed0-f011-8543-002248095213
+  DisplayName: Locator-flag-on-a-city-map.jpg
+  CheckSum: 7bfd7440f3cd1d6e5c65d768e2fd7817413d7c5b18f01d3a7f78e586b7acf34f
+  IsDeleted: false
+- RecordId: f59f2b2f-48d0-f011-bbd3-6045bd05b173
+  DisplayName: Hospital-outline.png
+  CheckSum: ef668ac03d8a826a666fd4eda69af9b913b731d6e42d06f3a9b3e55381d3239c
   IsDeleted: false
