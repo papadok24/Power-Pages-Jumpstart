@@ -1,0 +1,110 @@
+
+$presetThemeId: f21551a1-7244-432f-ad88-220609e070d3;
+$isModified: true;
+
+$name: GREY;
+
+$color1: #2E7D32;
+$color2: #1B5E20;
+$color3: #F3F2F1;
+$color4: #1565C0;
+$color5: #F8F8F8;
+$color6: #5C5A58;
+$color7: #FFFFFF;
+$color8: #212121;
+$color9: #191817;
+$color10: ;
+$color11: ;
+$color12: ;
+
+$primaryColor: $color2;
+$headerColor: $color7;
+$headerMenuTextColor: $color8;
+$headerMenuHoverColor: $color4;
+$bodyBackground: $color7;
+$footerColor: $color7;
+$footerTextColor: $color8;
+$footerTextFont: Open Sans;
+$footerTextWeight: 400;
+$footerTextSize: 12;
+
+$headerMenuTextFont: Poppins;
+$headerMenuTextWeight: 600;
+$headerMenuTextSize: 14;
+$headerMenuHoverStyle: Underline;
+
+$siteTitlecolor: $color8;
+$siteTitlefont: Poppins;
+$siteTitleweight: 600;
+$siteTitlesize: 30;
+
+$h1font: Poppins;
+$h1weight: 600;
+$h1size: 40;
+$h1color: $color8;
+
+$h2font: Poppins;
+$h2weight: 600;
+$h2size: 36;
+$h2color: $color8;
+
+$h3font: Poppins;
+$h3weight: 600;
+$h3size: 24;
+$h3color: $color8;
+
+$h4font: Poppins;
+$h4weight: 500;
+$h4size: 24;
+$h4color: $color8;
+
+$h5font: Poppins;
+$h5weight: 500;
+$h5size: 14;
+$h5color: $color8;
+
+$p1font: Open Sans;
+$p1weight: 400;
+$p1size: 16;
+$p1color: $color8;
+
+$p2font: Arial;
+$p2weight: 400;
+$p2size: 16;
+$p2color: $color8;
+
+$afont: Arial;
+$aweight: 400;
+$asize: 14;
+$atextcolor: $color4;
+$astyle: Plain text;
+$aonhoverstyle: Underline;
+$aonhovertextcolor: $color9;
+
+$button1style: Filled;
+$button1radius: 8;
+$button1font: Poppins;
+$button1weight: 600;
+$button1size: 14;
+$button1fillcolor: $color1;
+$button1textcolor: $color7;
+$button1onhoverstyle: Filled;
+$button1onhoverfillcolor: $color2;
+$button1onhovertextcolor: $color7;
+
+$button2style: Outline;
+$button2radius: 8;
+$button2font: Poppins;
+$button2weight: 600;
+$button2size: 14;
+$button2fillcolor: $color1;
+$button2textcolor: $color1;
+$button2onhoverstyle: Filled;
+$button2onhoverfillcolor: $color1;
+$button2onhovertextcolor: $color7;
+
+$sectioncolumnmargintopbottom: 54;
+$sectioncolumnmarginunit: px;
+$sectioncolumnpaddingunit: px;
+$sectioncolumncontentpadding: 16;
+

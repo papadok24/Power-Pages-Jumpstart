@@ -1,3 +1,8 @@
+adx_botconsumer:
+- RecordId: 8cf0286a-efcf-f011-8543-6045bd040e0a
+  DisplayName: Bot Consumer
+  CheckSum: c2785e97e03a155a447a691dcea06f1b126fea40db85607568fdbf0ebdf9f299
+  IsDeleted: false
 adx_contentsnippet:
 - RecordId: 1c056574-876c-40e2-acc0-6d6318032acf
   DisplayName: Search/Title
@@ -5,11 +10,11 @@ adx_contentsnippet:
   IsDeleted: false
 - RecordId: 3586555f-b897-a180-21eb-7ee631261f97
   DisplayName: Logo alt text
-  CheckSum: de439b5db20b362cab6f655cc02a77ac9b9f855c6aa89f270f0d5b13d39dc966
+  CheckSum: affb56d7c2420e26c7b0861079cec38a19cd056ea7f8ae4f6235d5a46b635957
   IsDeleted: false
 - RecordId: 3eae673f-cbc3-48f7-9fc5-0fb191b0e074
   DisplayName: Mobile Header
-  CheckSum: 8bdd7ef7260a62e6749ce1d21c4537fbc092ce8284020454cdf249ead0123374
+  CheckSum: d9f0e96ab9fcc09c130442d2443f29fb7d3c79738ee4c1023ec25fd01c3d2194
   IsDeleted: false
 - RecordId: 515318fe-6a74-4f57-968f-73ea165ce4c0
   DisplayName: Search/NoResults
@@ -17,7 +22,7 @@ adx_contentsnippet:
   IsDeleted: false
 - RecordId: 649bdad9-b182-0a44-e95e-7db3bfc189df
   DisplayName: Logo URL
-  CheckSum: 2548faba85e51c190c41f2c113da86f25535d168edc01607421fd706b2ccc6e6
+  CheckSum: 698b9afd1d9cafa6f7327c399c4ea43a584dbc6654fe0a54fc93025ac4a5313d
   IsDeleted: false
 - RecordId: 702d0ce2-63b5-442a-ad97-7fb6182e6f4b
   DisplayName: Header/Toggle Navigation
@@ -33,7 +38,7 @@ adx_contentsnippet:
   IsDeleted: false
 - RecordId: 9f76bd6a-3256-4166-8a96-dddf5b560223
   DisplayName: Footer
-  CheckSum: d069f28201fd352ba8d1aaf51b4b3f09452aaf99572f3767ea2f6cf5a38e578a
+  CheckSum: 36428d008926af94743987d0090447c7f44bb03a64eb045cae87f977a7054f37
   IsDeleted: false
 - RecordId: b68171dc-21eb-45bb-9a20-c86cf052f0f4
   DisplayName: Search/ResultsCount
@@ -41,7 +46,7 @@ adx_contentsnippet:
   IsDeleted: false
 - RecordId: ecc44ed1-bd14-a165-3a7b-c7fe6560a9c3
   DisplayName: Site name
-  CheckSum: 48ab6aa8d374c471f2d13e012a97e0562f9f5a52e0be7bf7895be9a366a8ea8e
+  CheckSum: 19e5de2e9b3393af8560aeacdec45185a12991da6466f1627621f8f1401daa8f
   IsDeleted: false
 adx_pagetemplate:
 - RecordId: 44c9788a-d004-428d-819a-6e5bf566a0b7
@@ -238,7 +243,7 @@ adx_sitesetting:
   IsDeleted: false
 - RecordId: 9b4fbe21-8a9d-451b-916c-e5de90319efa
   DisplayName: ThemeFeature
-  CheckSum: df9baefd7bccfc492d7d4aaa83a6e325e76facdb4699dcc25b304f0186642a56
+  CheckSum: 98886b0bb273a887dce7a0076c71b5b592d1c8d65e3349db08d0e2a04a3f443d
   IsDeleted: false
 - RecordId: 9e53036c-20ee-4bc7-814a-38d3b8282a07
   DisplayName: Authentication/Registration/LoginButtonAuthenticationType
@@ -305,13 +310,21 @@ adx_webfile:
   DisplayName: Logo-sm-64.png
   CheckSum: 8302b907bb2832e7d84c39e969fdfc842d144d2dc9bc4c1fda02f25fe37bb41f
   IsDeleted: false
+- RecordId: 81582b1f-529f-9ec8-46ff-7591c62f276f
+  DisplayName: GREY (1)
+  CheckSum: 4c6d92d967affc1472e1016da82b6d8c531d240678f0df37fbf8e55a41ebe437
+  IsDeleted: false
 - RecordId: 85129ff9-c6ae-4d6e-83a7-6c3ac1ab335a
   DisplayName: bootstrap.min.css
   CheckSum: d7c90261a8bdbe4083741b8f90c50438d2a864e76606ada1ee1518bd29092afc
   IsDeleted: false
+- RecordId: 8b44e050-f3cf-f011-8543-6045bd040e0a
+  DisplayName: favicon.ico
+  CheckSum: 827a714c95725c3feebc99ecf9315696b19327da45bcd7819f14e2fd2ced2ed1
+  IsDeleted: false
 - RecordId: 92f1ebe4-2813-4e62-a2f4-f999dbc83164
   DisplayName: portalbasictheme.css
-  CheckSum: 1f6388fbdd98d2022cbd530c2d34bcde549acefeab9beed482d4c5f5f4c56658
+  CheckSum: bc98f59c5574c6d2e9335a2c0787b216431936b3955d6b43e6fd3d65155be9d0
   IsDeleted: false
 - RecordId: 9e09ab27-432f-480f-aefc-87906ed8c127
   DisplayName: theme.css
@@ -320,6 +333,10 @@ adx_webfile:
 - RecordId: b4e9f21f-f484-4a9c-85d0-caf5b33a56e8
   DisplayName: Cat-PC.png
   CheckSum: ea5cbfbd42081355082ab89d2e672c98a773f8e5077d00d0beacc4bc37fb3cc9
+  IsDeleted: false
+- RecordId: b8486b9f-f917-4108-adbf-033197574d4a
+  DisplayName: pawsfirst-logo-final.png
+  CheckSum: 82812a47debad338486a015da3638736db1cc6be39a133086a5d85925ba8a0ae
   IsDeleted: false
 adx_weblink:
 - RecordId: 00f51a22-96f8-483c-b4af-3907df55146d
@@ -418,7 +435,7 @@ adx_webrole:
 adx_website:
 - RecordId: 33dc553c-860f-48ba-b0e6-33e079660f2c
   DisplayName: PawsFirst - pawsfirst-pa911
-  CheckSum: cc084b3202bc5449aaed8c28a45ce40b7d4a04e27414f63e5e9b9ae0c38e477d
+  CheckSum: 3e49e18545acedefb574eadb5991250223a98d4f042657dcfe8f547203f60653
   IsDeleted: false
 adx_websiteaccess:
 - RecordId: 0661893c-2fbb-4426-9387-72b0ffc039d9
@@ -493,6 +510,22 @@ adx_webtemplate:
   CheckSum: 5b78a2d91ce9814e306c3d0a7fa1fb627f8d1a5ff588d4d6b8ac5909d5e023f9
   IsDeleted: false
 annotation:
+- RecordId: 3a827f9c-f2cf-f011-8543-6045bd040e0a
+  DisplayName: GREY%20(1)
+  CheckSum: c61476c7da511b68d69fe0a34bc24081041be59814b8fe66ddaf94e624b50242
+  IsDeleted: false
+- RecordId: 3b827f9c-f2cf-f011-8543-6045bd040e0a
+  DisplayName: portalbasictheme.css
+  CheckSum: d6ade3181bc9bd4fb49aaa9c6e987b570580e9c4b8bbca2261763c0649068a54
+  IsDeleted: false
+- RecordId: 68dc59c6-f1cf-f011-8543-6045bd040e0a
+  DisplayName: pawsfirst-logo-final.png
+  CheckSum: 3b546edef150eebf25a33ffab399d285818ce49531431bc33ae8e1e3be7d1d62
+  IsDeleted: false
+- RecordId: 8d44e050-f3cf-f011-8543-6045bd040e0a
+  DisplayName: favicon.ico
+  CheckSum: a9e7cbcb8a95324cd95b7be73f2a3033c7a683f31fbe05b698e81d87968f44ca
+  IsDeleted: false
 - RecordId: 9ef097d7-edcf-f011-8543-6045bd040e0a
   DisplayName: theme.css
   CheckSum: 27abd74f3f56c89029aa5567dc932ed3de79d0fa59667f22338fa95b32fb68e1
@@ -508,7 +541,7 @@ annotation:
 - RecordId: a7f097d7-edcf-f011-8543-6045bd040e0a
   DisplayName: portalbasictheme.css
   CheckSum: 766090e253a285c500b4206e7db45d1e7bee107b60acc5db09a1f7e491162103
-  IsDeleted: false
+  IsDeleted: true
 - RecordId: acf097d7-edcf-f011-8543-6045bd040e0a
   DisplayName: bootstrap.min.css
   CheckSum: ebb0a96658aa03f859ee241f55d6a35159b62350b913769c0708b330828fda97

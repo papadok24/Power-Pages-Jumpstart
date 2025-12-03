@@ -114,7 +114,6 @@
   adx_sitesettingid: 99dc6319-f938-4fbf-94c8-28d800445d80
 - adx_name: ThemeFeature
   adx_sitesettingid: 9b4fbe21-8a9d-451b-916c-e5de90319efa
-  adx_value: '{"status":"enable","selectedThemeId":"f21551a1-7244-432f-ad88-220609e070d3","version":"V2"}'
 - adx_name: Authentication/Registration/LoginButtonAuthenticationType
   adx_sitesettingid: 9e53036c-20ee-4bc7-814a-38d3b8282a07
 - adx_description: 'Override query for site search, to apply additional weights and filters. @Query is the query text entered by a user. Lucene query syntax reference: http://lucene.apache.org/core/old_versioned_docs/versions/2_9_1/queryparsersyntax.html'

@@ -180,10 +180,10 @@ Power-Pages-Jumpstart/
 
 ```bash
 # Export Power Pages site metadata
-pac paportal download --path ./src/site
+pac pages download --path ./src/site
 
 # Import Power Pages site metadata
-pac paportal upload --path ./src/site
+pac pages upload --path ./src/site
 
 # Export Power Platform solution
 pac solution export --path ./src/solution
