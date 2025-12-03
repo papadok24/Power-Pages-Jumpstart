@@ -4,7 +4,7 @@
 
 This document outlines the complete data model design for the PawsFirst Veterinary Portal, leveraging Microsoft Dataverse's out-of-the-box (OOTB) entities alongside custom tables to create a comprehensive appointment booking system.
 
-**Schema Prefix**: `cr_` (custom prefix - adjust based on your environment's solution publisher)
+**Schema Prefix**: `pa911_` (custom prefix - adjust based on your environment's solution publisher)
 
 ---
 
@@ -48,8 +48,6 @@ This document outlines the complete data model design for the PawsFirst Veterina
 - **Pet** (M) → **Appointment** (1): Multiple appointments per pet
 - **Service** (1) → **Appointment** (M): Multiple appointments per service
 - **Pet** (M) → **Document** (1): Multiple documents per pet
-- **Contact** (M) → **Document** (1): Multiple documents per owner
-- **Appointment** (M) → **Document** (1): Multiple documents per appointment
 
 ---
 
@@ -85,7 +83,7 @@ This document outlines the complete data model design for the PawsFirst Veterina
 
 **Purpose**: Stores pet information linked to their owners.
 
-**Table Name**: `cr_pet`  
+**Table Name**: `pa911_pet`  
 **Display Name**: Pet  
 **Plural Name**: Pets
 
@@ -93,30 +91,30 @@ This document outlines the complete data model design for the PawsFirst Veterina
 
 | Column | Logical Name | Type | Required | Max Length | Notes |
 |--------|--------------|------|----------|------------|-------|
-| Primary Key | `cr_petid` | GUID | Yes | - | Auto-generated |
-| Primary Name | `cr_name` | Single Line of Text | Yes | 100 | Pet's name |
-| Species | `cr_species` | Choice | Yes | - | See Choice Values below |
-| Breed | `cr_breed` | Single Line of Text | No | 100 | Pet breed |
-| Date of Birth | `cr_dateofbirth` | Date Only | No | - | Pet's birth date |
-| Weight | `cr_weight` | Decimal | No | - | Weight in pounds (precision: 2) |
-| Owner | `cr_ownerid` | Lookup (Contact) | Yes | - | Pet owner relationship |
-| Medical Notes | `cr_notes` | Multiple Lines of Text | No | 2000 | Medical history/notes |
+| Primary Key | `pa911_petid` | GUID | Yes | - | Auto-generated |
+| Primary Name | `pa911_name` | Single Line of Text | Yes | 100 | Pet's name |
+| Species | `pa911_species` | Choice | Yes | - | See Choice Values below |
+| Breed | `pa911_breed` | Single Line of Text | No | 100 | Pet breed |
+| Date of Birth | `pa911_dateofbirth` | Date Only | No | - | Pet's birth date |
+| Weight | `pa911_weight` | Decimal | No | - | Weight in pounds (precision: 2) |
+| Owner | `pa911_petowner` | Lookup (Contact) | Yes | - | Pet owner relationship |
+| Medical Notes | `pa911_notes` | Multiple Lines of Text | No | 2000 | Medical history/notes |
 
-**Choice Values - Species** (`cr_species`):
-- `100000000` - Dog
-- `100000001` - Cat
-- `100000002` - Bird
-- `100000003` - Reptile
-- `100000004` - Other
+**Choice Values - Species** (`pa911_species`):
+- `144400000` - Dog
+- `144400001` - Cat
+- `144400002` - Bird
+- `144400003` - Reptile
+- `144400004` - Other
 
 **Relationships**:
-- **Many-to-One** with Contact (`cr_ownerid` → `contactid`)
+- **Many-to-One** with Contact (`pa911_petowner` → `contactid`)
 - **One-to-Many** with Appointment (via `regardingobjectid` polymorphic lookup)
-- **One-to-Many** with Document (`cr_petid` → `cr_document.cr_petid`)
+- **One-to-Many** with Document (`pa911_petid` → `pa911_document.pa911_pet`)
 
 **Table Permissions** (Power Pages):
-- **Read**: Users can read pets where `cr_ownerid` = current user's Contact
-- **Write**: Users can create/update pets where `cr_ownerid` = current user's Contact
+- **Read**: Users can read pets where `pa911_petowner` = current user's Contact
+- **Write**: Users can create/update pets where `pa911_petowner` = current user's Contact
 - **Delete**: Optional - typically restricted to prevent accidental deletion
 
 ---
@@ -125,7 +123,7 @@ This document outlines the complete data model design for the PawsFirst Veterina
 
 **Purpose**: Defines veterinary services offered by the clinic.
 
-**Table Name**: `cr_service`  
+**Table Name**: `pa911_service`  
 **Display Name**: Service  
 **Plural Name**: Services
 
@@ -133,15 +131,15 @@ This document outlines the complete data model design for the PawsFirst Veterina
 
 | Column | Logical Name | Type | Required | Max Length | Notes |
 |--------|--------------|------|----------|------------|-------|
-| Primary Key | `cr_serviceid` | GUID | Yes | - | Auto-generated |
-| Primary Name | `cr_name` | Single Line of Text | Yes | 100 | Service name |
-| Description | `cr_description` | Multiple Lines of Text | No | 2000 | Service description |
-| Duration | `cr_duration` | Whole Number | Yes | - | Duration in minutes |
-| Price | `cr_price` | Currency | No | - | Service cost |
-| Is Active | `cr_isactive` | Two Options | Yes | - | Active/Inactive toggle |
+| Primary Key | `pa911_serviceid` | GUID | Yes | - | Auto-generated |
+| Primary Name | `pa911_name` | Single Line of Text | Yes | 100 | Service name |
+| Description | `pa911_description` | Multiple Lines of Text | No | 2000 | Service description |
+| Duration | `pa911_duration` | Whole Number | Yes | - | Duration in minutes |
+| Price | `pa911_price` | Currency | No | - | Service cost |
+| Status | `statecode` | Status | Yes | - | Active/Inactive (standard Dataverse status field) |
 
 **Relationships**:
-- **One-to-Many** with Appointment (`cr_serviceid` → `cr_appointment.cr_serviceid`)
+- **One-to-Many** with Appointment (`pa911_serviceid` → `appointment.pa911_service`)
 
 **Table Permissions** (Power Pages):
 - **Read**: Public read access (all authenticated users)
@@ -179,31 +177,30 @@ This document outlines the complete data model design for the PawsFirst Veterina
 
 | Column | Logical Name | Type | Required | Notes |
 |--------|--------------|------|----------|-------|
-| Pet | `cr_petid` | Lookup (Pet) | Yes | Which pet the appointment is for |
-| Service | `cr_serviceid` | Lookup (Service) | Yes | Service being performed |
-| Appointment Status | `cr_appointmentstatus` | Choice | Yes | Custom status tracking |
+| Pet | `pa911_pet` | Lookup (Pet) | Yes | Which pet the appointment is for |
+| Service | `pa911_service` | Lookup (Service) | Yes | Service being performed |
+| Service Status | `pa911_servicestatus` | Choice | Yes | Custom status tracking |
 
 **Status Reasons** (OOTB `statuscode`):
 - **Open**: Requested (1), Confirmed (2), Arrived (3)
 - **Completed**: Completed (4)
 - **Cancelled**: Cancelled (5), No-Show (6)
 
-**Custom Choice Values - Appointment Status** (`cr_appointmentstatus`):
-- `100000000` - Requested
-- `100000001` - Confirmed
-- `100000002` - Completed
-- `100000003` - Cancelled
-- `100000004` - No-Show
+**Custom Choice Values - Service Status** (`pa911_servicestatus`):
+- `144400000` - Requested
+- `144400001` - Confirmed
+- `144400002` - Completed
+- `144400003` - Cancelled
+- `144400004` - No-Show
 
 **Relationships**:
-- **Many-to-One** with Pet (`cr_petid` → `cr_pet.cr_petid`)
+- **Many-to-One** with Pet (`pa911_pet` → `pa911_pet.pa911_petid`)
 - **Many-to-One** with Pet (via `regardingobjectid` polymorphic lookup)
-- **Many-to-One** with Service (`cr_serviceid` → `cr_service.cr_serviceid`)
+- **Many-to-One** with Service (`pa911_service` → `pa911_service.pa911_serviceid`)
 - **Many-to-One** with RecurringAppointmentMaster (`seriesid` → `activityid`)
-- **One-to-Many** with Document (`activityid` → `cr_document.cr_appointmentid`)
 
 **Table Permissions** (Power Pages):
-- **Read**: Users can read appointments where `cr_petid.cr_ownerid` = current user's Contact
+- **Read**: Users can read appointments where `pa911_pet.pa911_petowner` = current user's Contact
 - **Write**: Users can create appointments for their own pets; update/cancel their own appointments
 - **Delete**: Typically restricted (use cancellation status instead)
 
@@ -236,8 +233,8 @@ This document outlines the complete data model design for the PawsFirst Veterina
 
 | Column | Logical Name | Type | Required | Notes |
 |--------|--------------|------|----------|-------|
-| Pet | `cr_petid` | Lookup (Pet) | Yes | Which pet the series is for |
-| Service | `cr_serviceid` | Lookup (Service) | Yes | Service for recurring appointments |
+| Pet | `pa911_pet` | Lookup (Pet) | Yes | Which pet the series is for |
+| Service | `pa911_service` | Lookup (Service) | Yes | Service for recurring appointments |
 
 **Recurrence Pattern Types** (`recurrencepatterntype`):
 - `0` - Daily
@@ -252,7 +249,7 @@ This document outlines the complete data model design for the PawsFirst Veterina
 - Deleting the master deletes all associated instances
 
 **Table Permissions** (Power Pages):
-- **Read**: Users can read recurring appointments where `cr_petid.cr_ownerid` = current user's Contact
+- **Read**: Users can read recurring appointments where `pa911_pet.pa911_petowner` = current user's Contact
 - **Write**: Users can create recurring appointments for their own pets
 - **Delete**: Users can delete their own recurring appointment series
 
@@ -262,9 +259,9 @@ This document outlines the complete data model design for the PawsFirst Veterina
 
 ### Document (Custom Entity)
 
-**Purpose**: Stores file attachments related to pets, owners, and appointments.
+**Purpose**: Stores file attachments related to pets.
 
-**Table Name**: `cr_document`  
+**Table Name**: `pa911_document`  
 **Display Name**: Document  
 **Plural Name**: Documents
 
@@ -272,38 +269,25 @@ This document outlines the complete data model design for the PawsFirst Veterina
 
 | Column | Logical Name | Type | Required | Max Length | Notes |
 |--------|--------------|------|----------|------------|-------|
-| Primary Key | `cr_documentid` | GUID | Yes | - | Auto-generated |
-| Primary Name | `cr_name` | Single Line of Text | Yes | 200 | Document name |
-| Document Type | `cr_documenttype` | Choice | Yes | - | See Choice Values below |
-| Pet | `cr_petid` | Lookup (Pet) | No | - | Related pet (at least one relationship required) |
-| Owner | `cr_ownerid` | Lookup (Contact) | No | - | Related owner |
-| Appointment | `cr_appointmentid` | Lookup (Appointment) | No | - | Related visit/appointment |
-| Upload Date | `cr_uploaddate` | Date and Time | Yes | - | Upload timestamp |
-| File Attachment | `cr_file` | File | Yes | - | Actual file (stored in SharePoint) |
+| Primary Key | `pa911_documentid` | GUID | Yes | - | Auto-generated |
+| Primary Name | `pa911_name` | Single Line of Text | Yes | 200 | Document name |
+| Document Type | `pa911_type` | Choice | Yes | - | See Choice Values below |
+| Pet | `pa911_pet` | Lookup (Pet) | No | - | Related pet |
 
-**Choice Values - Document Type** (`cr_documenttype`):
-- `100000000` - Vaccination Record
-- `100000001` - Medical History
-- `100000002` - Insurance Document
-- `100000003` - Prescription
-- `100000004` - Lab Results
-- `100000005` - Other
+**Choice Values - Document Type** (`pa911_type`):
+- `144400000` - Vaccination Record
+- `144400001` - Medical History
+- `144400002` - Insurance Document
+- `144400003` - Prescription
+- `144400004` - Lab Results
+- `144400005` - Other
 
 **Relationships**:
-- **Many-to-One** with Pet (`cr_petid` → `cr_pet.cr_petid`)
-- **Many-to-One** with Contact (`cr_ownerid` → `contact.contactid`)
-- **Many-to-One** with Appointment (`cr_appointmentid` → `appointment.activityid`)
-
-**Business Rules**:
-- At least one relationship (Pet, Owner, or Appointment) must be populated
-- File storage handled via SharePoint integration (Day 3 topic)
+- **Many-to-One** with Pet (`pa911_pet` → `pa911_pet.pa911_petid`)
 
 **Table Permissions** (Power Pages):
-- **Read**: Users can read documents where:
-  - `cr_petid.cr_ownerid` = current user's Contact, OR
-  - `cr_ownerid` = current user's Contact, OR
-  - `cr_appointmentid.cr_petid.cr_ownerid` = current user's Contact
-- **Write**: Users can create/update documents for their own pets/owners/appointments
+- **Read**: Users can read documents where `pa911_pet.pa911_petowner` = current user's Contact
+- **Write**: Users can create/update documents for their own pets
 - **Delete**: Users can delete their own documents
 
 ---
@@ -319,7 +303,7 @@ This document outlines the complete data model design for the PawsFirst Veterina
 | **Service** | All | None | None |
 | **Appointment** | Own pets' appointments | Own pets' appointments | None |
 | **RecurringAppointmentMaster** | Own pets' recurring | Own pets' recurring | Own pets' recurring |
-| **Document** | Own pets/owners/appointments | Own pets/owners/appointments | Own pets/owners/appointments |
+| **Document** | Own pets' documents | Own pets' documents | Own pets' documents |
 
 **Scope Definitions**:
 - **Self**: User can only access their own record
@@ -332,23 +316,23 @@ This document outlines the complete data model design for the PawsFirst Veterina
 ## Implementation Checklist
 
 ### Phase 1: Core Tables
-- [ ] Create Pet custom table with all columns
-- [ ] Create Service custom table with all columns
-- [ ] Create Document custom table with all columns
-- [ ] Configure Choice/OptionSet values for all entities
+- [x] Create Pet custom table with all columns
+- [x] Create Service custom table with all columns
+- [x] Create Document custom table with all columns
+- [x] Configure Choice/OptionSet values for all entities
 
 ### Phase 2: Relationships
-- [ ] Create Pet → Contact relationship (Many-to-One)
-- [ ] Create Appointment → Pet relationship (Many-to-One, custom column)
-- [ ] Create Appointment → Service relationship (Many-to-One, custom column)
-- [ ] Create Document → Pet relationship (Many-to-One)
-- [ ] Create Document → Contact relationship (Many-to-One)
-- [ ] Create Document → Appointment relationship (Many-to-One)
+- [x] Create Pet → Contact relationship (Many-to-One)
+- [x] Create Appointment → Pet relationship (Many-to-One, custom column)
+- [x] Create Appointment → Service relationship (Many-to-One, custom column)
+- [x] Create Document → Pet relationship (Many-to-One)
+- [x] Create RecurringAppointmentMaster → Pet relationship (Many-to-One, custom column)
+- [x] Create RecurringAppointmentMaster → Service relationship (Many-to-One, custom column)
 
 ### Phase 3: Appointment Extensions
-- [ ] Add custom columns to Appointment entity
-- [ ] Configure Appointment → Pet polymorphic relationship (regardingobjectid)
-- [ ] Test RecurringAppointmentMaster integration
+- [x] Add custom columns to Appointment entity
+- [x] Configure Appointment → Pet polymorphic relationship (regardingobjectid)
+- [x] Test RecurringAppointmentMaster integration
 
 ### Phase 4: Power Pages Configuration
 - [ ] Configure table permissions for all entities
@@ -369,12 +353,11 @@ This document outlines the complete data model design for the PawsFirst Veterina
 1. Pet owner creates RecurringAppointmentMaster for monthly grooming
 2. Dataverse generates Appointment instances automatically
 3. Pet owner can modify individual instances if needed
-4. Documents can be attached to specific appointment instances
 
 ### Scenario 3: Appointment History
 1. Portal displays list of Appointments filtered by current user's pets
-2. Each appointment shows related Service and Document count
-3. User can drill into appointment details and view associated documents
+2. Each appointment shows related Service information
+3. User can drill into appointment details
 
 ---
 

@@ -43,8 +43,8 @@ The `RecurringAppointmentMaster` entity is a special activity entity in Datavers
 
 | Column | Logical Name | Type | Required | Description |
 |--------|--------------|------|----------|-------------|
-| Pet | `cr_petid` | Lookup (Pet) | Yes | Which pet the series is for |
-| Service | `cr_serviceid` | Lookup (Service) | Yes | Service for recurring appointments |
+| Pet | `pa911_pet` | Lookup (Pet) | Yes | Which pet the series is for |
+| Service | `pa911_service` | Lookup (Service) | Yes | Service for recurring appointments |
 
 ---
 
@@ -192,9 +192,9 @@ const recurringAppointment = {
   "dayofmonth": 15, // 15th of each month
   "scheduledstart": "2024-01-15T10:00:00Z",
   "scheduledend": "2024-01-15T11:00:00Z", // 1 hour duration
-  "cr_petid@odata.bind": "/cr_pets(<pet-guid>)",
-  "cr_serviceid@odata.bind": "/cr_services(<service-guid>)",
-  "regardingobjectid@odata.bind": "/cr_pets(<pet-guid>)"
+  "pa911_pet@odata.bind": "/pa911_pets(<pet-guid>)",
+  "pa911_service@odata.bind": "/pa911_services(<service-guid>)",
+  "regardingobjectid@odata.bind": "/pa911_pets(<pet-guid>)"
 };
 
 fetch('/api/data/v9.2/recurringappointmentmasters', {
@@ -232,7 +232,7 @@ fetch('/api/data/v9.2/recurringappointmentmasters', {
       <attribute name="patternenddate" />
       <attribute name="recurrencepatterntype" />
       <filter>
-        <condition attribute="cr_petid" operator="eq" value="{{ pet.cr_petid }}" />
+        <condition attribute="pa911_pet" operator="eq" value="{{ pet.pa911_petid }}" />
       </filter>
     </entity>
   </fetch>
@@ -261,7 +261,7 @@ fetch('/api/data/v9.2/recurringappointmentmasters', {
       <attribute name="scheduledstart" />
       <attribute name="scheduledend" />
       <filter>
-        <condition attribute="cr_petid" operator="eq" value="{{ pet.cr_petid }}" />
+        <condition attribute="pa911_pet" operator="eq" value="{{ pet.pa911_petid }}" />
         <condition attribute="scheduledstart" operator="ge" value="{{ 'now' | date: '%Y-%m-%dT%H:%M:%SZ' }}" />
       </filter>
       <order attribute="scheduledstart" />
@@ -348,7 +348,7 @@ fetch(`/api/data/v9.2/recurringappointmentmasters(${seriesId})`, {
 
 Configure table permissions for `recurringappointmentmaster`:
 
-- **Read**: Users can read recurring appointments where `cr_petid.cr_ownerid` = current user's Contact
+- **Read**: Users can read recurring appointments where `pa911_pet.pa911_petowner` = current user's Contact
 - **Write**: Users can create recurring appointments for their own pets
 - **Delete**: Users can delete their own recurring appointment series
 
