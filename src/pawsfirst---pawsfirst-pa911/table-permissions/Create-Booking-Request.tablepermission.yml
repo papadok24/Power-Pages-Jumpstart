@@ -1,0 +1,16 @@
+adx_accountrelationship: 
+adx_append: false
+adx_appendto: true
+adx_contactrelationship: 
+adx_create: true
+adx_delete: false
+adx_entitylogicalname: pa911_bookingrequest
+adx_entityname: Create Booking Request
+adx_entitypermission_webrole:
+- 9ae38a27-4760-4130-a278-9982e5603cdf
+adx_entitypermissionid: a21cce27-3707-48dc-bd95-2473baf691d9
+adx_parententitypermission: 
+adx_parentrelationship: 
+adx_read: false
+adx_scope: 756150000
+adx_write: false

@@ -28,11 +28,35 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{9a37f909-5852-4a70-8c04-d259fffafd03}">
+                      <cell id="{6797f9d0-4bb4-410f-a675-fad91dc4257a}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_description" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="pa911_description" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9a37f909-5852-4a70-8c04-d259fffafd03}" visible="false">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c3dd6882-9d30-4372-a148-b450c409f09d}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Price" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_price" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="pa911_price" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6395abe6-c950-41dd-9527-5c4f0f81bd2f}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Duration" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_duration" classid="{AA987274-CE4E-4271-A803-66164311A958}" datafieldname="pa911_duration" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -42,6 +66,9 @@
           </columns>
         </tab>
       </tabs>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

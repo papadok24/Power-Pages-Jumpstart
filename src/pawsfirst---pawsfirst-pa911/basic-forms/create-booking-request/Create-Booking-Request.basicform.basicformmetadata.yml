@@ -1,0 +1,12 @@
+- adx_entityform: a90e2b33-4ebe-4337-91b9-b706fe15bef5
+  adx_entityformmetadataid: fae530b8-5a7e-41da-b154-7b8195fd8edc
+  adx_label: >-
+    [
+      {
+        "LCID": 1033,
+        "Value": "Owner Information"
+      }
+    ]
+  adx_name: Create Booking Request tab_general_section_owner
+  adx_sectionname: tab_general_section_owner
+  adx_type: 100000001

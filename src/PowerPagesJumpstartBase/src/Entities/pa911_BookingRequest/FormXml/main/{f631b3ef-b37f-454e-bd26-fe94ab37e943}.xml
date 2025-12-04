@@ -5,34 +5,168 @@
     <IntroducedVersion>1.0.0.0</IntroducedVersion>
     <FormPresentation>1</FormPresentation>
     <FormActivationState>1</FormActivationState>
-    <form>
+    <form headerdensity="HighWithControls">
       <tabs>
-        <tab verticallayout="true" id="{c448ea89-e9a6-4d8a-80cd-0d1a358cebb6}" IsUserDefined="1">
+        <tab verticallayout="true" id="{c448ea89-e9a6-4d8a-80cd-0d1a358cebb6}" IsUserDefined="1" name="tab_general">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{5ed57746-d6d6-45fd-bed0-045397c514a7}">
+                <section showlabel="true" showbar="false" IsUserDefined="0" id="{5ed57746-d6d6-45fd-bed0-045397c514a7}" name="tab_general_section_info" columns="11">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{caa311ed-4b67-4ce5-ac17-e958fcd7efb6}">
+                      <cell locklevel="0" id="{57ef8d4a-4857-4e24-b5f6-a1a0c6e001b1}">
                         <labels>
-                          <label description="Name" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="pa911_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="pa911_name" />
+                      </cell>
+                      <cell id="{51f92987-b8aa-41a1-b5f5-a948921d937b}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Pet Name" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_petname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="pa911_petname" disabled="false" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{cde24dfc-004e-46d1-bc6b-91d3a3f9be95}">
+                      <cell id="{13af1dc7-9778-49b2-aa17-6e64a5a8649a}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Full Name" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_fullname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="pa911_fullname" disabled="false" />
+                      </cell>
+                      <cell id="{7b7b2c27-c559-4334-8e7c-5276fa07a89b}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Pet Species" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_petspecies" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="pa911_petspecies" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a05c1a1a-5cf7-46cc-ac91-4d203168257f}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="First Name" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_firstname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="pa911_firstname" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{bde6b4e6-f369-4965-a8b0-da57de075a0d}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Last Name" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_lastname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="pa911_lastname" disabled="false" />
+                      </cell>
+                      <cell id="{77d599cf-3967-4494-a91b-6977608a637b}" locklevel="0" colspan="1" rowspan="6" auto="true">
+                        <labels>
+                          <label description="Pet Notes" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_petnotes" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="pa911_petnotes" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{d1f0c53e-5095-481a-a88d-0611af58c2f2}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Email" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_email" classid="{ADA2203E-B4CD-49BE-9DDF-234642B43B52}" datafieldname="pa911_email" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{f3f8cfee-6c81-4b10-9397-20cd21de9f0f}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8cdbabaf-0b06-4f26-80e7-1925103466a3}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Phone" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_phone" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="pa911_phone" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{825f700d-28fc-45fd-b904-f16e61cd4bd9}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="tab_general_section_service" id="3cf4d611-9bf5-4856-a14a-5eb45858e3dd" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Requested Service" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{123e905b-5283-478e-8f67-7f5df2a64841}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Service" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_service" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="pa911_service" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6ba0cc3f-112c-4ead-b859-14b3b93a2e85}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Preferred Slot" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_preferredslot" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="pa911_preferredslot" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{ec2ec5d4-4a36-42cb-8437-aae5d5e324f9}" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Requested Service" languagecode="1033" />
+                        </labels>
+                        <control id="qv_requested_service" classid="{5C5600E0-1D6E-4205-A272-BE80DA87FD42}" datafieldname="pa911_service">
+                          <parameters>
+                            <DisplayAsCustomer360Tile>false</DisplayAsCustomer360Tile>
+                            <QuickForms>&lt;QuickFormIds&gt;&lt;QuickFormId entityname="pa911_service"&gt;b5f614bb-b8eb-4806-9941-9a588a76970c&lt;/QuickFormId&gt;&lt;/QuickFormIds&gt;</QuickForms>
+                            <HideQuickFormBorder>true</HideQuickFormBorder>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="tab_general_section_record_info" id="7caedd01-866f-45aa-bf1b-72b025897147" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Record Information" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{0148de17-582e-4176-9166-a78df8ce361a}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Status Reason" languagecode="1033" />
+                        </labels>
+                        <control id="statuscode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="statuscode" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{89d29da0-8f00-4cad-b4cf-132da97a2989}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Contact" languagecode="1033" />
+                        </labels>
+                        <control id="pa911_contact" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="pa911_contact" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{cde24dfc-004e-46d1-bc6b-91d3a3f9be95}" colspan="1" rowspan="1">
                         <labels>
                           <label description="Owner" languagecode="1033" />
                         </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                        <control id="header_ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="true" />
                       </cell>
                     </row>
                   </rows>
@@ -42,6 +176,57 @@
           </columns>
         </tab>
       </tabs>
+      <header id="{6b3a268b-c125-47bd-8558-176141ba2310}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{7da980ff-2e29-489d-8810-a1620cff83f9}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{fcb3cdc1-bc4f-422e-91f6-5371c5ee6515}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{4f80178e-5b32-48ff-894e-fc054957025b}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{caa311ed-4b67-4ce5-ac17-e958fcd7efb6}" colspan="1" rowspan="1" locklevel="0">
+              <labels>
+                <label description="Booking No" languagecode="1033" />
+              </labels>
+              <control id="header_pa911_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="pa911_name" disabled="true" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{b6cff22b-7fb6-46fa-a59d-d99fdc185d32}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{a4ab7026-0d4c-4031-9090-ab84d76bcbc6}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{7c5811ad-7dbc-486b-a9dd-f7ee07ea9a8a}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{1a5871e5-794e-44e3-bdd3-bc1ec1d33db2}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

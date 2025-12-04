@@ -1,0 +1,17 @@
+adx_accountrelationship: 
+adx_append: true
+adx_appendto: false
+adx_contactrelationship: 
+adx_create: false
+adx_delete: false
+adx_entitylogicalname: pa911_service
+adx_entityname: Global Services
+adx_entitypermission_webrole:
+- 1ea08492-79b7-461e-b208-0a9f001d1c5b
+- 9ae38a27-4760-4130-a278-9982e5603cdf
+adx_entitypermissionid: aa0ebe03-b116-4022-b978-1c30f25c111f
+adx_parententitypermission: 
+adx_parentrelationship: 
+adx_read: true
+adx_scope: 756150000
+adx_write: false

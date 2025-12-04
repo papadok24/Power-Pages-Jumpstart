@@ -1,0 +1,33 @@
+adx_attachfilelabel: >-
+  [
+    {
+      "LCID": 1033,
+      "Value": ""
+    }
+  ]
+adx_attachfilemaxsize: 
+adx_attachfilestoragelocation: 756150000
+adx_captcharequired: true
+adx_containername: ''
+adx_entityformid: a90e2b33-4ebe-4337-91b9-b706fe15bef5
+adx_entityname: pa911_bookingrequest
+adx_entitypermissionsenabled: true
+adx_entitysourcetype: 0
+adx_formname: Web - Submit Booking Request
+adx_hideformonsuccess: true
+adx_maximumnooffiles: 5
+adx_mode: 100000000
+adx_name: Create Booking Request
+adx_onsuccess: 756150000
+adx_recordidquerystringparametername: 
+adx_redirecturl: 
+adx_redirectwebpage: 
+adx_showcaptchaforauthenticatedusers: false
+adx_storageaccountname: ''
+adx_successmessage: >-
+  [
+    {
+      "LCID": 1033,
+      "Value": "Thank you for submitting!"
+    }
+  ]

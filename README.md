@@ -4,7 +4,7 @@
 
 A 3-day (~12 hours total) Power Pages jumpstart class teaching external-facing, data-driven website development through a **Veterinary Appointment Booking Portal** demo.
 
-**Core Value Proposition**: Power Pages solves the problem of exposing internal Dataverse data to external users in a secure, controlled manner without custom web development.
+**Core Value Proposition**: Power Pages solves the problem of exposing internal Dataverse data to external users in a secure, controlled manner with a low-code first approach.
 
 ---
 

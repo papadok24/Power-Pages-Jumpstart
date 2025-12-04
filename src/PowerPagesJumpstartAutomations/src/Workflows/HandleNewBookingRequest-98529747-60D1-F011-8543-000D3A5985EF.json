@@ -1,0 +1,137 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "pa911_sharedcommondataserviceforapps_e7cd2"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "When_a_Booking_is_Submitted": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "parameters": {
+              "subscriptionRequest/message": 1,
+              "subscriptionRequest/entityname": "pa911_bookingrequest",
+              "subscriptionRequest/scope": 4
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "97ab083c-5db0-4f9f-bb53-f61068f0b0fd"
+          }
+        }
+      },
+      "actions": {
+        "Get_Appointment_Slot": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "pa911_appointmentslots",
+              "recordId": "@triggerOutputs()?['body/_pa911_preferredslot_value']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {}
+        },
+        "Confirm_Appointment_is_Available": {
+          "type": "If",
+          "expression": {
+            "and": [
+              {
+                "equals": [
+                  "@outputs('Get_Appointment_Slot')?['body/pa911_isavailable']",
+                  "@true"
+                ]
+              }
+            ]
+          },
+          "actions": {
+            "Create_new_contact_from_submission": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "contacts",
+                  "item/lastname": "@triggerOutputs()?['body/pa911_lastname']",
+                  "item/emailaddress1": "@triggerOutputs()?['body/pa911_email']",
+                  "item/firstname": "@triggerOutputs()?['body/pa911_firstname']",
+                  "item/mobilephone": "@triggerOutputs()?['body/pa911_phone']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              }
+            },
+            "Create_new_pet_from_submission": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "pa911_pets",
+                  "item/pa911_name": "@triggerOutputs()?['body/pa911_petname']",
+                  "item/pa911_PetOwner@odata.bind": "contacts(@{outputs('Create_new_contact_from_submission')?['body/contactid']})",
+                  "item/pa911_species": "@triggerOutputs()?['body/pa911_petspecies']",
+                  "item/pa911_notes": "@triggerOutputs()?['body/pa911_petnotes']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Create_new_contact_from_submission": [
+                  "SUCCEEDED"
+                ]
+              }
+            }
+          },
+          "else": {
+            "actions": {
+              "Terminate_-_Succeed": {
+                "type": "Terminate",
+                "inputs": {
+                  "runStatus": "Succeeded"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Get_Appointment_Slot": [
+              "SUCCEEDED"
+            ]
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

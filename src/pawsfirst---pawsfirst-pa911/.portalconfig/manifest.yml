@@ -1,3 +1,13 @@
+adx_weblink:
+- RecordId: 00f51a22-96f8-483c-b4af-3907df55146d
+  DisplayName: Home
+  CheckSum: 
+  IsDeleted: true
+adx_weblinkset:
+- RecordId: 491f77c9-e4fc-4676-9840-f0dc29d053d3
+  DisplayName: Default
+  CheckSum: 
+  IsDeleted: true
 annotation:
 - RecordId: a7f097d7-edcf-f011-8543-6045bd040e0a
   DisplayName: portalbasictheme.css

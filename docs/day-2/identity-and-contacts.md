@@ -286,6 +286,7 @@ This ensures users only see data for their own pets.
 - **Check**: `adx_identity_logon_enabled` = true on Contact record
 - **Check**: Email address matches exactly (case-sensitive in some scenarios)
 - **Check**: Entra ID app registration redirect URIs are correct
+- **Check**: ExternalId Dataverse table has required information
 
 **Issue**: User sees "Access Denied" on pages
 - **Check**: Table permissions are configured correctly
