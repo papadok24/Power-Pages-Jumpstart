@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.25101.159" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25101.159" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25103.00175">
+<ImportExportXml version="9.2.25101.159" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25101.159" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25104.00167">
   <SolutionManifest>
     <UniqueName>PowerPagesJumpstartBase</UniqueName>
     <LocalizedNames>
@@ -78,14 +78,13 @@
       </Addresses>
     </Publisher>
     <RootComponents>
-      <RootComponent type="1" schemaName="account" behavior="1" />
       <RootComponent type="1" schemaName="appointment" behavior="2" />
       <RootComponent type="1" schemaName="contact" behavior="1" />
-      <RootComponent type="1" schemaName="pa911_document" behavior="0" />
+      <RootComponent type="1" schemaName="pa911_appointmentslot" behavior="0" />
+      <RootComponent type="1" schemaName="pa911_bookingrequest" behavior="0" />
       <RootComponent type="1" schemaName="pa911_pet" behavior="0" />
       <RootComponent type="1" schemaName="pa911_service" behavior="0" />
       <RootComponent type="1" schemaName="recurringappointmentmaster" behavior="2" />
-      <RootComponent type="9" schemaName="pa911_ppjdocumenttype" behavior="0" />
       <RootComponent type="9" schemaName="pa911_ppjspecies" behavior="0" />
     </RootComponents>
     <MissingDependencies />

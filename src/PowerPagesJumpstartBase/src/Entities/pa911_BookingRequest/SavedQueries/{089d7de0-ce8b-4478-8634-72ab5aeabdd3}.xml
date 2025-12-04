@@ -5,33 +5,32 @@
     <CanBeDeleted>0</CanBeDeleted>
     <isquickfindquery>0</isquickfindquery>
     <isprivate>0</isprivate>
-    <isdefault>0</isdefault>
-    <savedqueryid>{ea9dc2be-6b1c-41a2-ac10-b59b39afafc0}</savedqueryid>
+    <isdefault>1</isdefault>
+    <savedqueryid>{089d7de0-ce8b-4478-8634-72ab5aeabdd3}</savedqueryid>
     <layoutxml>
-      <grid name="resultset" jump="pa911_name" select="1" icon="1" preview="1">
-        <row name="result" id="pa911_documentid">
+      <grid name="pa911_bookingrequests" jump="pa911_name" select="1" icon="1" preview="0">
+        <row name="pa911_bookingrequest" id="pa911_bookingrequestid">
           <cell name="pa911_name" width="300" />
           <cell name="createdon" width="125" />
         </row>
       </grid>
     </layoutxml>
-    <querytype>0</querytype>
+    <querytype>64</querytype>
     <fetchxml>
       <fetch version="1.0" mapping="logical">
-        <entity name="pa911_document">
-          <attribute name="pa911_documentid" />
+        <entity name="pa911_bookingrequest">
+          <attribute name="pa911_bookingrequestid" />
           <attribute name="pa911_name" />
           <attribute name="createdon" />
-          <order attribute="pa911_name" descending="false" />
           <filter type="and">
-            <condition attribute="statecode" operator="eq" value="1" />
+            <condition attribute="statecode" operator="eq" value="0" />
           </filter>
         </entity>
       </fetch>
     </fetchxml>
-    <IntroducedVersion>1.0</IntroducedVersion>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
     <LocalizedNames>
-      <LocalizedName description="Inactive Documents" languagecode="1033" />
+      <LocalizedName description="Booking Request Lookup View" languagecode="1033" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

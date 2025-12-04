@@ -6,32 +6,29 @@
     <isquickfindquery>0</isquickfindquery>
     <isprivate>0</isprivate>
     <isdefault>1</isdefault>
-    <savedqueryid>{922a1e62-093e-487c-b77e-4ce03f98955e}</savedqueryid>
+    <savedqueryid>{0442291c-c229-4bbf-9346-1b9b7703d37d}</savedqueryid>
     <layoutxml>
-      <grid name="pa911_documents" jump="pa911_name" select="1" icon="1" preview="1">
-        <row name="pa911_document" id="pa911_documentid">
+      <grid name="resultset" jump="pa911_name" select="1" icon="1" preview="1">
+        <row name="result" id="pa911_bookingrequestid">
           <cell name="pa911_name" width="300" />
           <cell name="createdon" width="125" />
         </row>
       </grid>
     </layoutxml>
-    <querytype>2</querytype>
+    <querytype>1</querytype>
     <fetchxml>
       <fetch version="1.0" mapping="logical">
-        <entity name="pa911_document">
-          <attribute name="pa911_documentid" />
+        <entity name="pa911_bookingrequest">
+          <attribute name="pa911_bookingrequestid" />
           <attribute name="pa911_name" />
           <attribute name="createdon" />
           <order attribute="pa911_name" descending="false" />
-          <filter type="and">
-            <condition attribute="statecode" operator="eq" value="0" />
-          </filter>
         </entity>
       </fetch>
     </fetchxml>
-    <IntroducedVersion>1.0</IntroducedVersion>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
     <LocalizedNames>
-      <LocalizedName description="Document Associated View" languagecode="1033" />
+      <LocalizedName description="Booking Request Advanced Find View" languagecode="1033" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

@@ -6,12 +6,12 @@
     <isquickfindquery>0</isquickfindquery>
     <isprivate>0</isprivate>
     <isdefault>1</isdefault>
-    <savedqueryid>{34a13762-e8cf-f011-8543-6045bd0062d1}</savedqueryid>
+    <savedqueryid>{6639c7a4-4ad1-f011-8543-000d3a5985ef}</savedqueryid>
     <querytype>8192</querytype>
     <fetchxml>
       <fetch version="1.0" mapping="logical" output-format="xml-platform">
-        <entity name="pa911_document">
-          <attribute name="pa911_documentid" />
+        <entity name="pa911_bookingrequest">
+          <attribute name="pa911_bookingrequestid" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
             <condition attribute="ownerid" operator="eq-userid" />
@@ -19,12 +19,12 @@
         </entity>
       </fetch>
     </fetchxml>
-    <IntroducedVersion>1.0</IntroducedVersion>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
     <LocalizedNames>
-      <LocalizedName description="My Documents" languagecode="1033" />
+      <LocalizedName description="My Booking Requests" languagecode="1033" />
     </LocalizedNames>
     <Descriptions>
-      <Description description="Active Documents owned by me" languagecode="1033" />
+      <Description description="Active Booking Requests owned by me" languagecode="1033" />
     </Descriptions>
   </savedquery>
 </savedqueries>

@@ -6,10 +6,10 @@
     <isquickfindquery>0</isquickfindquery>
     <isprivate>0</isprivate>
     <isdefault>1</isdefault>
-    <savedqueryid>{32a7630e-5bcb-44b3-bc4a-656e6d215c96}</savedqueryid>
+    <savedqueryid>{b93d5977-48d7-458d-af5e-ab0761a148bc}</savedqueryid>
     <layoutxml>
       <grid name="resultset" jump="pa911_name" select="1" icon="1" preview="1">
-        <row name="result" id="pa911_documentid">
+        <row name="result" id="pa911_appointmentslotid">
           <cell name="pa911_name" width="300" />
           <cell name="createdon" width="125" />
         </row>
@@ -18,17 +18,17 @@
     <querytype>1</querytype>
     <fetchxml>
       <fetch version="1.0" mapping="logical">
-        <entity name="pa911_document">
-          <attribute name="pa911_documentid" />
+        <entity name="pa911_appointmentslot">
+          <attribute name="pa911_appointmentslotid" />
           <attribute name="pa911_name" />
           <attribute name="createdon" />
           <order attribute="pa911_name" descending="false" />
         </entity>
       </fetch>
     </fetchxml>
-    <IntroducedVersion>1.0</IntroducedVersion>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
     <LocalizedNames>
-      <LocalizedName description="Document Advanced Find View" languagecode="1033" />
+      <LocalizedName description="Appointment Slot Advanced Find View" languagecode="1033" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>
