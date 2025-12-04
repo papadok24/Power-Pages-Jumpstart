@@ -13,41 +13,49 @@ This document outlines the complete data model design for the PawsFirst Veterina
 ```
 ┌─────────────────┐
 │    Contact      │ (OOTB)
-│  (Pet Owner)    │
-└────────┬────────┘
-         │ 1
-         │
-         │ M
-┌────────▼────────┐       ┌─────────────────┐
-│      Pet        │       │    Service      │
-│   (Custom)      │       │   (Custom)      │
-└────────┬────────┘       └────────┬────────┘
-         │ M                       │ 1
-         │                         │
-         │                         │ M
-         │                  ┌──────▼──────────┐
-         │                  │   Appointment  │ (OOTB Activity)
-         │                  │                │
-         │                  └──────┬─────────┘
-         │                         │
-         │                         │ M
-         │                  ┌──────▼──────────┐
-         │                  │ RecurringAppt   │ (OOTB Activity)
-         │                  │    Master       │
-         │                  └─────────────────┘
-         │
-         │ M
-┌────────▼────────┐
-│    Document     │
-│   (Custom)      │
-└─────────────────┘
+│  (Pet Owner)    │◄─────────────────────────────┐
+└────────┬────────┘                              │
+         │ 1                                     │ (created via Flow)
+         │                                       │
+         │ M                                     │
+┌────────▼────────┐                     ┌────────┴────────┐
+│      Pet        │                     │ Booking Request │
+│   (Custom)      │                     │    (Custom)     │
+│                 │                     └────────┬────────┘
+│  + SharePoint   │                             │ M:1
+│    Documents    │                             │
+└────────┬────────┘                             │ M:1
+         │ M                                    │
+         │                                      │
+         │                  ┌────────────────────┤
+         │                  │                    │
+         │                  ▼ M:1                ▼ M:1
+         │         ┌──────────────────┐  ┌─────────────────┐
+         │         │ Appointment Slot │◄─│    Service      │
+         │         │    (Custom)      │  │   (Custom)      │
+         │         └──────────────────┘  └────────┬────────┘
+         │                                         │
+         │                                         │ M
+         │                                  ┌──────▼──────────┐
+         │                                  │   Appointment  │ (OOTB Activity)
+         │                                  │                │
+         │                                  └──────┬─────────┘
+         │                                         │
+         │                                         │ M
+         │                                  ┌──────▼──────────┐
+         │                                  │ RecurringAppt   │ (OOTB Activity)
+         │                                  │    Master       │
+         │                                  └─────────────────┘
 ```
 
 **Relationship Summary:**
 - **Contact** (1) → **Pet** (M): One pet owner can have multiple pets
+- **Contact** (1) ← **Booking Request** (M): Contact created via Power Automate flow from booking request
 - **Pet** (M) → **Appointment** (1): Multiple appointments per pet
 - **Service** (1) → **Appointment** (M): Multiple appointments per service
-- **Pet** (M) → **Document** (1): Multiple documents per pet
+- **Service** (1) → **Appointment Slot** (M): Multiple slots per service
+- **Appointment Slot** (1) ← **Booking Request** (M): One slot can have multiple requests (triage)
+- **Pet** → **SharePoint Documents**: Pet medical documents stored in SharePoint (not a Dataverse table)
 
 ---
 
@@ -110,7 +118,13 @@ This document outlines the complete data model design for the PawsFirst Veterina
 **Relationships**:
 - **Many-to-One** with Contact (`pa911_petowner` → `contactid`)
 - **One-to-Many** with Appointment (via `regardingobjectid` polymorphic lookup)
-- **One-to-Many** with Document (`pa911_petid` → `pa911_document.pa911_pet`)
+- **SharePoint Document Management**: Pet medical documents stored in SharePoint document locations (not a Dataverse table)
+
+**SharePoint Integration**:
+- The Pet table is enabled for SharePoint document management
+- Documents are stored in SharePoint, not in Dataverse
+- Documents are associated with Pet records via SharePoint document locations
+- See [SharePoint Integration Guide](../day-3/sharepoint-integration.md) for setup instructions
 
 **Table Permissions** (Power Pages):
 - **Read**: Users can read pets where `pa911_petowner` = current user's Contact
@@ -257,38 +271,103 @@ This document outlines the complete data model design for the PawsFirst Veterina
 
 ---
 
-### Document (Custom Entity)
+---
 
-**Purpose**: Stores file attachments related to pets.
+### Appointment Slot (Custom Entity)
 
-**Table Name**: `pa911_document`  
-**Display Name**: Document  
-**Plural Name**: Documents
+**Purpose**: Pre-defined available time slots that administrators can manage for booking requests.
+
+**Table Name**: `pa911_appointmentslot`  
+**Display Name**: Appointment Slot  
+**Plural Name**: Appointment Slots
 
 **Columns**:
 
 | Column | Logical Name | Type | Required | Max Length | Notes |
 |--------|--------------|------|----------|------------|-------|
-| Primary Key | `pa911_documentid` | GUID | Yes | - | Auto-generated |
-| Primary Name | `pa911_name` | Single Line of Text | Yes | 200 | Document name |
-| Document Type | `pa911_type` | Choice | Yes | - | See Choice Values below |
-| Pet | `pa911_pet` | Lookup (Pet) | No | - | Related pet |
-
-**Choice Values - Document Type** (`pa911_type`):
-- `144400000` - Vaccination Record
-- `144400001` - Medical History
-- `144400002` - Insurance Document
-- `144400003` - Prescription
-- `144400004` - Lab Results
-- `144400005` - Other
+| Primary Key | `pa911_appointmentslotid` | GUID | Yes | - | Auto-generated |
+| Primary Name | `pa911_name` | Single Line of Text | Yes | 100 | Auto-generated display (e.g., "Dec 15, 2025 10:00 AM") |
+| Start Time | `pa911_starttime` | Date and Time | Yes | - | Slot start time |
+| End Time | `pa911_endtime` | Date and Time | Yes | - | Slot end time |
+| Service | `pa911_service` | Lookup (Service) | Yes | - | Which service this slot is for |
+| Is Available | `pa911_isavailable` | Two Options | Yes | - | Default: Yes (true), set to No when booked |
+| Status | `statecode` | Status | Yes | - | Active/Inactive (standard Dataverse status field) |
 
 **Relationships**:
-- **Many-to-One** with Pet (`pa911_pet` → `pa911_pet.pa911_petid`)
+- **Many-to-One** with Service (`pa911_service` → `pa911_service.pa911_serviceid`)
+- **One-to-Many** with Booking Request (`pa911_appointmentslotid` → `pa911_bookingrequest.pa911_appointmentslot`)
 
 **Table Permissions** (Power Pages):
-- **Read**: Users can read documents where `pa911_pet.pa911_petowner` = current user's Contact
-- **Write**: Users can create/update documents for their own pets
-- **Delete**: Users can delete their own documents
+- **Read**: Public read access (all users, including anonymous) - needed for booking form
+- **Write**: Restricted to internal users/admins only
+- **Delete**: Restricted to admins only
+
+**Usage Notes**:
+- Administrators create slots in advance based on service availability
+- Slots are filtered by Service type on the booking form
+- When a booking request is approved, the slot's `pa911_isavailable` is set to false
+- Slots can be reused if a booking is cancelled
+
+---
+
+### Booking Request (Custom Entity)
+
+**Purpose**: Anonymous intake form submissions for appointment booking triage.
+
+**Table Name**: `pa911_bookingrequest`  
+**Display Name**: Booking Request  
+**Plural Name**: Booking Requests
+
+**Columns**:
+
+| Column | Logical Name | Type | Required | Max Length | Notes |
+|--------|--------------|------|----------|------------|-------|
+| Primary Key | `pa911_bookingrequestid` | GUID | Yes | - | Auto-generated |
+| Primary Name | `pa911_name` | Single Line of Text | Yes | 100 | Auto-generated request number |
+| First Name | `pa911_firstname` | Single Line of Text | Yes | 50 | Requester first name |
+| Last Name | `pa911_lastname` | Single Line of Text | Yes | 50 | Requester last name |
+| Email | `pa911_email` | Single Line of Text | Yes | 100 | Requester email (used for portal invitation) |
+| Phone | `pa911_phone` | Single Line of Text | No | 50 | Contact phone number |
+| Pet Name | `pa911_petname` | Single Line of Text | Yes | 100 | Pet's name |
+| Pet Species | `pa911_petspecies` | Choice | Yes | - | See Choice Values below |
+| Pet Notes | `pa911_petnotes` | Multiple Lines of Text | No | 2000 | Additional pet information |
+| Service | `pa911_service` | Lookup (Service) | Yes | - | Requested service |
+| Preferred Slot | `pa911_appointmentslot` | Lookup (Appointment Slot) | Yes | - | Selected time slot |
+| Request Status | `pa911_requeststatus` | Choice | Yes | - | See Choice Values below |
+| Contact | `pa911_contact` | Lookup (Contact) | No | - | Linked after portal invitation (set by Power Automate) |
+| Status | `statecode` | Status | Yes | - | Active/Inactive (standard Dataverse status field) |
+
+**Choice Values - Pet Species** (`pa911_petspecies`):
+- `144400000` - Dog
+- `144400001` - Cat
+- `144400002` - Bird
+- `144400003` - Reptile
+- `144400004` - Other
+
+**Choice Values - Request Status** (`pa911_requeststatus`):
+- `144400000` - Pending (default)
+- `144400001` - Approved
+- `144400002` - Rejected
+
+**Relationships**:
+- **Many-to-One** with Service (`pa911_service` → `pa911_service.pa911_serviceid`)
+- **Many-to-One** with Appointment Slot (`pa911_appointmentslot` → `pa911_appointmentslot.pa911_appointmentslotid`)
+- **Many-to-One** with Contact (`pa911_contact` → `contact.contactid`) - Set after invitation
+
+**Table Permissions** (Power Pages):
+- **Read**: Anonymous create access (for booking form), authenticated users can read their own requests
+- **Write**: Anonymous create access (for booking form), authenticated users can update their own requests
+- **Delete**: Restricted to admins only (use status changes instead)
+
+**Workflow**:
+1. Anonymous user submits booking request via Entity Form
+2. Power Automate flow triggers on record creation
+3. Flow creates/finds Contact record using email
+4. Flow sends portal invitation email
+5. Flow links Contact to Booking Request
+6. Flow sets Request Status to "Pending"
+7. Staff reviews and approves/rejects in model-driven app
+8. Approved requests can be converted to actual Appointments
 
 ---
 
@@ -301,9 +380,11 @@ This document outlines the complete data model design for the PawsFirst Veterina
 | **Contact** | Self | Self | None |
 | **Pet** | Own pets | Own pets | None (or Self) |
 | **Service** | All | None | None |
+| **Appointment Slot** | All (including anonymous) | None | None |
+| **Booking Request** | Anonymous create, Self read | Anonymous create, Self write | None |
 | **Appointment** | Own pets' appointments | Own pets' appointments | None |
 | **RecurringAppointmentMaster** | Own pets' recurring | Own pets' recurring | Own pets' recurring |
-| **Document** | Own pets' documents | Own pets' documents | Own pets' documents |
+| **SharePoint Documents** | Own pets' documents (via SharePoint) | Own pets' documents (via SharePoint) | Own pets' documents (via SharePoint) |
 
 **Scope Definitions**:
 - **Self**: User can only access their own record
@@ -318,16 +399,21 @@ This document outlines the complete data model design for the PawsFirst Veterina
 ### Phase 1: Core Tables
 - [x] Create Pet custom table with all columns
 - [x] Create Service custom table with all columns
-- [x] Create Document custom table with all columns
+- [ ] Create Appointment Slot custom table with all columns
+- [ ] Create Booking Request custom table with all columns
 - [x] Configure Choice/OptionSet values for all entities
+- [ ] Enable SharePoint document management for Pet table
 
 ### Phase 2: Relationships
 - [x] Create Pet → Contact relationship (Many-to-One)
 - [x] Create Appointment → Pet relationship (Many-to-One, custom column)
 - [x] Create Appointment → Service relationship (Many-to-One, custom column)
-- [x] Create Document → Pet relationship (Many-to-One)
 - [x] Create RecurringAppointmentMaster → Pet relationship (Many-to-One, custom column)
 - [x] Create RecurringAppointmentMaster → Service relationship (Many-to-One, custom column)
+- [ ] Create Appointment Slot → Service relationship (Many-to-One)
+- [ ] Create Booking Request → Service relationship (Many-to-One)
+- [ ] Create Booking Request → Appointment Slot relationship (Many-to-One)
+- [ ] Create Booking Request → Contact relationship (Many-to-One)
 
 ### Phase 3: Appointment Extensions
 - [x] Add custom columns to Appointment entity
@@ -347,7 +433,7 @@ This document outlines the complete data model design for the PawsFirst Veterina
 1. Contact record created via Power Pages registration
 2. Pet owner logs in and creates Pet records
 3. Pet owner books first Appointment
-4. Pet owner uploads vaccination Document
+4. Pet owner uploads vaccination documents to SharePoint (associated with Pet record)
 
 ### Scenario 2: Recurring Appointment Setup
 1. Pet owner creates RecurringAppointmentMaster for monthly grooming
@@ -358,6 +444,18 @@ This document outlines the complete data model design for the PawsFirst Veterina
 1. Portal displays list of Appointments filtered by current user's pets
 2. Each appointment shows related Service information
 3. User can drill into appointment details
+
+### Scenario 4: Anonymous Booking Request
+1. Anonymous user visits site and selects a Service
+2. Available Appointment Slots are displayed (filtered by Service)
+3. User fills out Booking Request form with pet and contact details
+4. Power Automate flow triggers on Booking Request creation
+5. Flow creates/finds Contact record using email
+6. Flow sends portal invitation email
+7. Flow links Contact to Booking Request and sets status to "Pending"
+8. Staff reviews request in model-driven app (triage)
+9. Invited user receives email, registers/logs in to portal
+10. User can view their booking status via authenticated Entity List
 
 ---
 

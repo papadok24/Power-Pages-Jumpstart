@@ -46,23 +46,27 @@ A modern appointment booking portal for a veterinary clinic where pet owners can
 
 | Time | Topic |
 |------|-------|
-| 0:00-0:45 | **Custom Web Components** - Manifest structure, parameters |
-| 0:45-1:30 | **Build: Appointment Card Gallery** - Component development |
-| 1:30-2:15 | **Build: Service Listing** - Flex Containers implementation |
-| 2:15-2:30 | **Break** |
-| 2:30-3:15 | **Portals Web API** - Site settings, CRUD operations |
-| 3:15-4:00 | **Build: Appointment Booking** - Web API integration (no form) |
+| 0:00-0:30 | **Lists and Views** - OOTB Entity Lists, filtering, and customization |
+| 0:30-1:00 | **Build: Anonymous Booking Form** - OOTB Entity Forms for public access |
+| 1:00-1:30 | **Power Automate Integration** - Cloud flows triggered from Power Pages |
+| 1:30-2:00 | **Identity Providers Deep Dive** - Entra ID configuration, Contact system architecture |
+| 2:00-2:15 | **Break** |
+| 2:15-2:30 | **Build: User Onboarding Flow** - Review portal invitation automation flow |
+| 2:30-3:00 | **Custom Web Templates** - Manifest structure, parameters (optional) |
+| 3:00-3:30 | **Build: Service Catalog** - Display available services and slots |
+| 3:30-4:00 | **Wrap-up** - Day 2 review, Q&A, preview Day 3 |
 
 ### Day 3: Advanced Features (~4 hours)
 
 | Time | Topic |
 |------|-------|
-| 0:00-0:45 | **User Management** - Roles, permissions, table permissions |
-| 0:45-1:30 | **Build: Custom Invitation System** - Pet owner onboarding |
-| 1:30-2:15 | **Enhanced File Uploads** - SharePoint integration setup |
+| 0:00-0:45 | **SharePoint Integration Setup** - Enable document management, configure locations |
+| 0:45-1:30 | **Build: Pet Document Upload (OOTB)** - Subgrid and form-based document management |
+| 1:30-2:15 | **Build: Pet Document Upload (Custom)** - Reverse-engineered SharePoint API implementation |
 | 2:15-2:30 | **Break** |
-| 2:30-3:15 | **Build: Pet Document Upload** - Web API file handling |
-| 3:15-4:00 | **Wrap-up** - Deployment, best practices, Q&A |
+| 2:30-3:00 | **View Appointment History** - OOTB Entity Lists and custom views |
+| 3:00-3:30 | **ALM Overview** - Solutions, PAC CLI, Pipelines, GitHub Actions |
+| 3:30-4:00 | **Wrap-up** - Deployment best practices, course review, Q&A |
 
 ---
 
@@ -203,11 +207,19 @@ pac solution export --path ./src/solution
 
 ### Day 2: Building Features
 
-_Coming soon - Custom Web Components and Portals Web API documentation_
+- **[Identity and Contacts](docs/day-2/identity-and-contacts.md)** - Power Pages authentication architecture, Microsoft Entra ID integration, and Contact system
+- **[Booking Request Form](docs/day-2/booking-request-form.md)** - Step-by-step guide for creating anonymous OOTB Entity Forms
+- **[Power Automate Integration](docs/day-2/power-automate-integration.md)** - Cloud flow setup for user onboarding automation
+- **[Lists and Views](docs/day-2/lists-and-views.md)** - OOTB Entity Lists configuration and Dataverse views
+- **[Custom Web Templates](docs/day-2/custom-web-templates.md)** - Optional advanced topic on web template components with manifest
 
 ### Day 3: Advanced Features
 
-_Coming soon - User Management and SharePoint Integration documentation_
+- **[SharePoint Integration](docs/day-3/sharepoint-integration.md)** - Enable SharePoint document management for Pet records
+- **[Pet Document Upload (OOTB)](docs/day-3/pet-document-upload-ootb.md)** - Out-of-the-box document management using subgrids
+- **[Pet Document Upload (Custom)](docs/day-3/pet-document-upload-custom.md)** - Custom implementation using reverse-engineered SharePoint API
+- **[Appointment History](docs/day-3/appointment-history.md)** - Display appointment history using OOTB Entity Lists and custom views
+- **[ALM Overview](docs/day-3/alm-overview.md)** - Application Lifecycle Management: Solutions, PAC CLI, Pipelines, and GitHub Actions
 
 ---
 
