@@ -357,3 +357,4 @@ After understanding governance basics:
 2. Explore [Data Model Design](data-model.md) to understand table permissions
 3. Learn about [Identity and Contacts](../day-2/identity-and-contacts.md) for authentication configuration
 
+

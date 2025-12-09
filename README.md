@@ -243,6 +243,39 @@ pac pages upload --path ./src/site
 pac solution export --path ./src/solution
 ```
 
+### Building Managed Solutions
+
+To build managed solution packages from the `.cdsproj` files in the `src/` directory, use the build script:
+
+```powershell
+.\scripts\Build-Solutions.ps1 -Version "1.0.0.1"
+```
+
+**Parameters:**
+- `-Version` (Required): Version number in format `Major.Minor.Patch.Build` (e.g., "1.0.0.1")
+- `-OutputPath` (Optional): Output directory for built solutions (default: "build/solutions")
+- `-Configuration` (Optional): MSBuild configuration (default: "Release")
+
+**Example:**
+```powershell
+# Build all solutions with version 1.0.0.1
+.\scripts\Build-Solutions.ps1 -Version "1.0.0.1"
+
+# Build with custom output path
+.\scripts\Build-Solutions.ps1 -Version "2.0.0.0" -OutputPath "dist"
+```
+
+The script will:
+1. Find all `.cdsproj` files in the `src/` directory
+2. Update each solution's `Solution.xml` with the specified version
+3. Build managed solution packages using MSBuild
+4. Output solution ZIP files to the specified output directory
+
+**Prerequisites:**
+- MSBuild (included with Visual Studio or Visual Studio Build Tools)
+- .NET SDK (for NuGet package restore)
+- PowerShell 5.1 or later
+
 ---
 
 ## Documentation
