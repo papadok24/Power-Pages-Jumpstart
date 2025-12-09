@@ -19,3 +19,13 @@
   adx_robotsfollowlink: true
   adx_weblinkid: d1c9786c-3b1f-44bc-25e4-cd0635c03b49
   adx_weblinksetid: f9c24570-b93e-4625-b2d1-717f5d16de8b
+- adx_displayimageonly: false
+  adx_displayorder: 3
+  adx_displaypagechildlinks: false
+  adx_name: Dashboard
+  adx_openinnewwindow: false
+  adx_pageid: eb5cf182-45cb-b1e6-f196-9360c6dfaab0
+  adx_publishingstateid: b45e696b-f022-473e-b402-4467eba99cba
+  adx_robotsfollowlink: true
+  adx_weblinkid: e53e91d0-5958-ccad-bd7e-5c79bdc36d12
+  adx_weblinksetid: f9c24570-b93e-4625-b2d1-717f5d16de8b

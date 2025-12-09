@@ -58,6 +58,15 @@ adx_entityformmetadata:
   DisplayName: Create Booking Request tab_general_section_owner
   CheckSum: b7d223cc5cf069bc61f0e79fe0e25ec4432bf42a4b1e655e061d5ca37652f84a
   IsDeleted: false
+adx_entitylist:
+- RecordId: 6dcaad6b-b7e2-42a2-a288-e2478aa4e756
+  DisplayName: My Pets
+  CheckSum: 2413a9324586cc66bc4dc9d4e4ce66aacc7c565eb1b30a2531fd5cdf706f3700
+  IsDeleted: false
+- RecordId: f462f6c5-3cc7-40ed-bf1e-763922ae570c
+  DisplayName: My Pet Appointments
+  CheckSum: 99f66f80a209d133d7fee980d3e60ccdd9260f8520fd9fad0d69dd5c802a4431
+  IsDeleted: false
 adx_entitypermission:
 - RecordId: 55b0bcca-9bd8-417a-97ce-6c1490fac1a1
   DisplayName: Service -> Available Appointment
@@ -74,6 +83,10 @@ adx_entitypermission:
 - RecordId: aa0ebe03-b116-4022-b978-1c30f25c111f
   DisplayName: Global Services
   CheckSum: 963926ee77caac541c0922b6762e438de4bb52d94d9ea8e505400dd5f27daa06
+  IsDeleted: false
+- RecordId: fac03a1f-2e8d-4222-b518-95310b81705b
+  DisplayName: Pet -> Appointments
+  CheckSum: a31bf27a48a3503eae0fc1c824e23c6ac0ae53cce7c77a3af3495ec6d00765a1
   IsDeleted: false
 - RecordId: fed5c532-8a97-4ff2-acac-a6d4b90617d7
   DisplayName: Manage Contact Bookings
@@ -199,7 +212,7 @@ adx_sitesetting:
   IsDeleted: false
 - RecordId: 17c6b0f6-702a-499e-8eb3-3e951595d49d
   DisplayName: Authentication/Registration/ProfileRedirectEnabled
-  CheckSum: fee1591eee4f2580d817fcd22c5af2daf8a8b607ff78e3195a2fa23a5cb0e5fc
+  CheckSum: 28fe61035cc34af792db7607143ff5fea73de99df1022e2813c8eadfd2866e4a
   IsDeleted: false
 - RecordId: 1cccb278-ee60-4f9f-b297-374660e83519
   DisplayName: Search/FacetedView
@@ -247,7 +260,7 @@ adx_sitesetting:
   IsDeleted: false
 - RecordId: 6cb8db59-0db0-4f9c-80f8-a90a8cda31b0
   DisplayName: Authentication/Registration/InvitationEnabled
-  CheckSum: a24ec845641dc7c940959fbde1ce2ce7ad34265c48fadc4de51173074ce18e52
+  CheckSum: 9eb8e46615d298cdecbf82895f0ebd997074a9469789a8a1c7b057746f3ce82c
   IsDeleted: false
 - RecordId: 72dbd2cd-fdaf-49f0-9129-5d898030cbce
   DisplayName: Authentication/Registration/LocalLoginDeprecated
@@ -495,6 +508,10 @@ adx_weblink:
   DisplayName: Book Appointment
   CheckSum: 584b8eec703b3c5d28b33e194bfd63f4316334854f06cbd8e3c973dafdd8efe1
   IsDeleted: false
+- RecordId: e53e91d0-5958-ccad-bd7e-5c79bdc36d12
+  DisplayName: Dashboard
+  CheckSum: 9fbd71e6c86370d84af300d0d1e2c2bacbf5d5608c644cf353b2b24d9a77bbeb
+  IsDeleted: false
 adx_weblinkset:
 - RecordId: 491f77c9-e4fc-4676-9840-f0dc29d053d3
   DisplayName: Default
@@ -549,6 +566,10 @@ adx_webpage:
   DisplayName: Page Not Found
   CheckSum: 92d1c98b55c97e4dd507174a3174761147bdf661f7a4cd07de372e8445bbeeb3
   IsDeleted: false
+- RecordId: 8b18571c-a815-4dde-6351-68b138456374
+  DisplayName: Dashboard
+  CheckSum: dbd6fc757ebf6a3e35b8af2e4978c0720b38a232f974cb61722b37b7cf4d7a55
+  IsDeleted: false
 - RecordId: b2d9f808-e5d8-4259-b3b5-0def4adc992f
   DisplayName: Search
   CheckSum: 1d6da69c7eded1af792948e009d06b037a88dc901fb9341429869bb25871de6e
@@ -557,7 +578,15 @@ adx_webpage:
   DisplayName: Home
   CheckSum: f1fd62aa85dfe8239d223f49f512ccdb07ffd7157c943674e793d709226e5263
   IsDeleted: false
+- RecordId: eb5cf182-45cb-b1e6-f196-9360c6dfaab0
+  DisplayName: Dashboard
+  CheckSum: 65a6d7d3b7b56b27113be948a355f55d3e43974ce53a768ea762c5a22f852d80
+  IsDeleted: false
 adx_webpageaccesscontrolrule:
+- RecordId: 1b80b4f0-951b-0e2d-7b94-5f6a6d9a700a
+  DisplayName: Restrict Read on Dashboard
+  CheckSum: 0885fa4d1664d97218ba64f57c217647f1e7de1479207f5cfcda100a5490eaf9
+  IsDeleted: false
 - RecordId: 1f1caa18-179e-4b23-826d-08f073b8b38c
   DisplayName: Grant Change to Administrators
   CheckSum: 56f5d9c2e33ff1989f66683b4f5012d93ab3a94b09c4b8ed96e29424731eec80
@@ -567,6 +596,10 @@ adx_webpageaccesscontrolrule:
   CheckSum: 593ecb52d7d26fb66dc14c24e2bb722ed3e99d07fc1a2eabf3ef932c3b27f885
   IsDeleted: false
 adx_webpageaccesscontrolrule_webrole:
+- RecordId: 1ea08492-79b7-461e-b208-0a9f001d1c5b
+  DisplayName: $RELATIONSHIP$adx_webpageaccesscontrolrule:1b80b4f0-951b-0e2d-7b94-5f6a6d9a700a:adx_webrole
+  CheckSum: 9634e9c886a624dae879dad760f8e623bb096f72eac58ea8ab81b5aa1f8198fe
+  IsDeleted: false
 - RecordId: a7e9d623-fc65-427e-aaef-2508fb6056ff
   DisplayName: $RELATIONSHIP$adx_webpageaccesscontrolrule:1f1caa18-179e-4b23-826d-08f073b8b38c:adx_webrole
   CheckSum: c4fba267956778222e595aa7a9de7185a50ae226452b6547f3925ee45b221ffa

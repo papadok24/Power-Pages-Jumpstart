@@ -34,7 +34,8 @@
 - adx_description: Sets whether or not the portal can redirect the user to the profile page after successful sign-in. By default, it is set to true.
   adx_name: Authentication/Registration/ProfileRedirectEnabled
   adx_sitesettingid: 17c6b0f6-702a-499e-8eb3-3e951595d49d
-  adx_value: true
+  adx_source: 0
+  adx_value: false
 - adx_description: Determines if faceted search is used for this portal.
   adx_name: Search/FacetedView
   adx_sitesettingid: 1cccb278-ee60-4f9f-b297-374660e83519
@@ -76,7 +77,8 @@
   adx_value: false
 - adx_name: Authentication/Registration/InvitationEnabled
   adx_sitesettingid: 6cb8db59-0db0-4f9c-80f8-a90a8cda31b0
-  adx_value: true
+  adx_source: 0
+  adx_value: false
 - adx_description: A true or false value. If set to true, the local account will be marked as deprecated. The portal user will be required to migrate to a non-deprecated account.
   adx_name: Authentication/Registration/LocalLoginDeprecated
   adx_sitesettingid: 72dbd2cd-fdaf-49f0-9129-5d898030cbce

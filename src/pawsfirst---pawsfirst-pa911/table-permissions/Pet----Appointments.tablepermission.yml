@@ -1,0 +1,15 @@
+adx_accountrelationship: 
+adx_append: false
+adx_appendto: true
+adx_contactrelationship: 
+adx_create: false
+adx_delete: false
+adx_entitylogicalname: appointment
+adx_entityname: Pet -> Appointments
+adx_entitypermission_webrole: []
+adx_entitypermissionid: fac03a1f-2e8d-4222-b518-95310b81705b
+adx_parententitypermission: 704671a3-721f-463f-8795-ef79715a7737
+adx_parentrelationship: pa911_pet_Appointments
+adx_read: true
+adx_scope: 756150003
+adx_write: true
