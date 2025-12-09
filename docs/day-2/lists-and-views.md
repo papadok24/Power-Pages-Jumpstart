@@ -28,6 +28,8 @@ Entity Lists are Power Pages components that display Dataverse data in a table f
 
 Before creating an Entity List, you need Dataverse views that define what data to display. The PawsFirst portal uses three customer-facing views: **My Pets**, **My Booking Requests**, and **My Appointments** (with Active and History variants).
 
+**Note**: Each Dataverse table has an active view OOTB (out-of-the-box). You can use the default active view or create custom views. Filters are automatically applied based on table permissions configured in the portal, so you don't need to add filters to the views themselves.
+
 ### View for Pets
 
 1. Navigate to **Power Apps** → **Dataverse** → **Tables** → **Pet** (`pa911_pet`)
@@ -44,18 +46,6 @@ Before creating an Entity List, you need Dataverse views that define what data t
 | Breed (pa911_breed) | 120 | - |
 | Date of Birth (pa911_dateofbirth) | 120 | - |
 | Weight (pa911_weight) | 100 | - |
-
-#### Filters
-
-Add filters to show only the current user's pets:
-
-```
-pa911_petowner eq [Current User Contact]
-AND
-statecode eq 0
-```
-
-This ensures users only see their own active pets.
 
 5. **Save** the view as: **My Pets**
 
@@ -77,19 +67,9 @@ This ensures users only see their own active pets.
 | Request Status (pa911_requeststatus) | 120 | - |
 | Created On (createdon) | 120 | Descending |
 
-#### Filters
-
-Add filters to show only the current user's booking requests:
-
-```
-pa911_contact eq [Current User Contact]
-AND
-statecode eq 0
-```
-
-**Important**: This view uses the `pa911_contact` lookup field (set by Power Automate after invitation), not the name/email fields. This ensures users only see their own booking requests after they've been linked to their Contact record.
-
 5. **Save** the view as: **My Booking Requests**
+
+**Note**: Table permissions will automatically filter records to show only the current user's booking requests (via the `pa911_contact` lookup field set by Power Automate after invitation).
 
 ### View for Active Appointments
 
@@ -109,21 +89,9 @@ statecode eq 0
 | Service (pa911_service) | 150 | - |
 | Service Status (pa911_servicestatus) | 120 | - |
 
-#### Filters
-
-Add filters to show only active appointments for the current user's pets:
-
-```
-pa911_pet.pa911_petowner eq [Current User Contact]
-AND
-pa911_servicestatus in (144400000, 144400001)
-AND
-statecode eq 0
-```
-
-This shows appointments with status "Requested" (`144400000`) or "Confirmed" (`144400001`) for the user's pets.
-
 5. **Save** the view as: **My Active Appointments**
+
+**Note**: Table permissions will automatically filter records to show only appointments for the current user's pets. You can optionally filter by service status in the view if you want to separate active and completed appointments.
 
 ### View for Appointment History (Optional)
 
@@ -131,22 +99,11 @@ This shows appointments with status "Requested" (`144400000`) or "Confirmed" (`1
 2. Go to **Views** tab
 3. Click **New view** → **Public view**
 4. Configure view with the same columns as **My Active Appointments**
-
-#### Filters
-
-```
-pa911_pet.pa911_petowner eq [Current User Contact]
-AND
-pa911_servicestatus in (144400002, 144400003, 144400004)
-AND
-statecode eq 0
-```
-
-This shows completed (`144400002`), cancelled (`144400003`), or no-show (`144400004`) appointments.
-
 5. **Save** the view as: **My Appointment History**
 
-**Note**: You can also create a single "All Appointments" view without status filtering if you prefer to let users filter by status in the Entity List interface.
+**Note**: Table permissions will automatically filter records to show only appointments for the current user's pets. You can optionally filter by service status in the view to show completed (`144400002`), cancelled (`144400003`), or no-show (`144400004`) appointments.
+
+**Note**: You can create a single "All Appointments" view if you prefer to let users filter by status in the Entity List interface, or create separate views for different statuses.
 
 ---
 
@@ -549,19 +506,6 @@ Entity Lists automatically provide search functionality:
 - Searches across all displayed columns
 - Real-time filtering as user types
 
-### Advanced Filtering
-
-For more complex filtering, use FetchXML in the view:
-
-1. Edit the Dataverse view
-2. Switch to **Advanced Find** view
-3. Add complex filters:
-   ```
-   pa911_requeststatus eq 144400000
-   AND
-   createdon ge [Last 30 Days]
-   ```
-
 ### URL Parameters
 
 Filter lists using URL parameters:
@@ -640,9 +584,9 @@ function cancelBookingRequest(requestId) {
 ### View Optimization
 
 1. **Limit Columns**: Only include necessary columns in view
-2. **Add Indexes**: Index frequently filtered columns
-3. **Filter Early**: Use view filters to reduce data volume
-4. **Limit Records**: Set appropriate page size
+2. **Add Indexes**: Index columns used in table permission scopes (e.g., `pa911_petowner`, `pa911_contact`)
+3. **Limit Records**: Set appropriate page size
+4. **Table Permissions**: Ensure table permissions are properly scoped to reduce data volume automatically
 
 ### Caching
 
@@ -730,10 +674,10 @@ These views are managed in Dataverse but are not used in Power Pages Entity List
 
 **Issue**: List shows no records
 - **Check**: Table permissions are configured correctly (Contact scope for Pets, Booking Requests, Appointments)
-- **Check**: View filters are not too restrictive (verify `[Current User Contact]` filter syntax)
 - **Check**: User has appropriate web role (Authenticated Users)
 - **Check**: For Booking Requests, verify `pa911_contact` is linked (set by Power Automate flow)
 - **Check**: For Appointments, verify the pet's owner matches the current user's Contact
+- **Check**: View is set as the active view or is properly selected in the Entity List configuration
 
 **Issue**: Search not working
 - **Check**: "Enable Search" is enabled in Entity List settings
@@ -746,10 +690,10 @@ These views are managed in Dataverse but are not used in Power Pages Entity List
 - **Check**: Detail/edit pages exist and are accessible (if using "View Details" action)
 
 **Issue**: Performance issues
-- **Check**: View has appropriate filters (especially Contact-based filters)
+- **Check**: Table permissions are properly scoped (Contact/Account scope reduces data volume automatically)
 - **Check**: Number of columns is reasonable (limit to essential fields)
 - **Check**: Records per page is not too high (10-20 records is typical)
-- **Check**: Indexes are created on filtered columns (especially `pa911_petowner`, `pa911_contact`)
+- **Check**: Indexes are created on columns used in table permission scopes (especially `pa911_petowner`, `pa911_contact`)
 
 **Issue**: Dashboard summary lists showing too many records
 - **Check**: Use `recordsperpage:5` parameter in Entity List tag to limit summary display
@@ -762,9 +706,9 @@ These views are managed in Dataverse but are not used in Power Pages Entity List
 ### View Design
 
 1. **Keep Views Focused**: One view per use case
-2. **Use Filters**: Filter at view level, not just list level
-3. **Limit Columns**: Only show necessary information
-4. **Sort Appropriately**: Default sort by most relevant field
+2. **Limit Columns**: Only show necessary information
+3. **Sort Appropriately**: Default sort by most relevant field
+4. **Use OOTB Active Views**: Consider using the default active view if it meets your needs, or create custom views for specific use cases
 
 ### Permissions
 
