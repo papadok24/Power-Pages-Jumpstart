@@ -8,28 +8,95 @@ This guide provides an overview of Power Platform governance concepts and admini
 
 ---
 
-## Understanding Power Platform Admin Roles
+## Understanding Administrative Roles
 
 Before managing a Power Pages site, it's important to understand the different administrative roles and their responsibilities. Different tasks require different permission levels.
 
-### Key Administrative Roles
+**Important**: There are two distinct types of administrative roles that govern Power Pages sites:
+
+1. **Power Platform Environment Admin Roles** (Dataverse roles) - Assigned within the Power Platform environment, control access to Dataverse/environment resources
+2. **Microsoft Entra ID Admin Roles** (Azure AD roles) - Assigned at the tenant level in Microsoft Entra ID, control access to Azure AD resources and app registrations
+
+Understanding which role type is needed for specific tasks helps ensure proper access and security for your Power Pages site.
+
+---
+
+### Power Platform Environment Admin Roles
+
+Power Platform Environment Admin Roles are Dataverse-level roles assigned within your Power Platform environment. These roles control access to Dataverse tables, environments, and Power Pages site configuration. These roles are assigned in the Power Platform Admin Center or through Dataverse security settings.
 
 | Role | Purpose | Common Tasks |
 |------|---------|--------------|
-| **System Administrator** | Full access to all administrative functions | Site provisioning, environment management, user management |
-| **System Customizer** | Can customize the system but cannot manage security | Table configuration, form customization, workflow management |
-| **Website Owner** | Can manage specific Power Pages site settings | Site configuration, content management, table permissions |
-| **Power Platform Administrator** | Manages Power Platform environments and resources | Environment creation, DLP policies, capacity management |
+| **System Administrator** (Dataverse) | Full access to all administrative functions within the environment | Site provisioning, environment management, user management, Dataverse configuration |
+| **System Customizer** (Dataverse) | Can customize the system but cannot manage security | Table configuration, form customization, workflow management, solution management |
+| **Website Owner** (Dataverse) | Can manage specific Power Pages site settings | Site configuration, content management, table permissions for assigned sites |
+| **Power Platform Administrator** (Dataverse role) | Manages Power Platform environment-level resources | Environment configuration, solution deployment, environment security settings |
+
+**Note**: The Power Platform Administrator role exists in both Power Platform environments (Dataverse) and Microsoft Entra ID, but they serve different purposes. The Dataverse role manages environment-level resources, while the Entra role (discussed below) manages tenant-level Power Platform resources.
+
+---
+
+### Microsoft Entra ID Admin Roles
+
+Microsoft Entra ID Admin Roles are tenant-level roles assigned in Microsoft Entra ID (formerly Azure Active Directory). These roles control access to Azure AD resources, app registrations, and tenant-wide Power Platform administration. These roles are assigned in the Azure Portal under Microsoft Entra ID.
+
+| Role | Purpose | Common Tasks |
+|------|---------|--------------|
+| **Power Platform Administrator** (Entra role) | Manages Power Platform tenant-level resources | Environment creation/deletion, DLP policies, capacity management, tenant-wide Power Platform settings |
+| **Global Administrator** | Full access to all administrative functions in Entra ID tenant | Can manage app registrations, assign Entra roles, manage all Entra resources |
+| **Application Administrator** | Can manage app registrations and service principals | Manage app registrations, configure app permissions, manage service principals |
+| **Application Owner** | Can manage specific app registrations | Manage assigned app registrations (e.g., Power Pages site app registration), configure app settings |
+
+**Key Distinction**: Application Owner is an Entra role that grants ownership of specific Microsoft Entra app registrations. This is different from Website Owner, which is a Dataverse role for managing Power Pages site settings. To manage a Power Pages site's app registration, you need Application Owner (Entra role) or one of the higher Entra roles.
+
+---
+
+### Role Type Quick Reference
+
+| Role Name | Role Type | Where Assigned | Common Use Cases |
+|-----------|-----------|----------------|-----------------|
+| System Administrator | Power Platform Environment (Dataverse) | Power Platform Admin Center / Dataverse | Site provisioning, environment management |
+| System Customizer | Power Platform Environment (Dataverse) | Power Platform Admin Center / Dataverse | Table configuration, form customization |
+| Website Owner | Power Platform Environment (Dataverse) | Power Platform Admin Center / Dataverse | Site configuration, content management |
+| Power Platform Administrator (Dataverse) | Power Platform Environment (Dataverse) | Power Platform Admin Center / Dataverse | Environment configuration, solution deployment |
+| Power Platform Administrator (Entra) | Microsoft Entra ID | Azure Portal / Microsoft Entra ID | Tenant-wide Power Platform management, DLP policies |
+| Global Administrator | Microsoft Entra ID | Azure Portal / Microsoft Entra ID | Full tenant access, app registration management |
+| Application Administrator | Microsoft Entra ID | Azure Portal / Microsoft Entra ID | App registration management, service principals |
+| Application Owner | Microsoft Entra ID | Azure Portal / Microsoft Entra ID | Manage specific app registrations (Power Pages sites) |
+
+---
 
 ### Roles Required for Website Administration
 
-For the PawsFirst portal, you'll need appropriate roles to perform common administrative tasks:
+For the PawsFirst portal, you'll need appropriate roles to perform common administrative tasks. Each task specifies which role type is required:
 
-- **Adding Custom Domain Names**: Requires System Administrator or Website Owner role
-- **Updating Dynamics 365 Instance**: Requires System Administrator role
-- **Managing Authentication Keys**: Requires System Administrator or Website Owner role
-- **Configuring Table Permissions**: Requires System Customizer or Website Owner role
-- **Managing Site Visibility**: Requires System Administrator or Website Owner role
+- **Adding Custom Domain Names**: 
+  - Requires: System Administrator (Dataverse) or Website Owner (Dataverse) role
+  - Entra role required: None
+
+- **Updating Dynamics 365 Instance**: 
+  - Requires: System Administrator (Dataverse) role
+  - Entra role required: None
+
+- **Managing Authentication Keys**: 
+  - Requires: System Administrator (Dataverse) or Website Owner (Dataverse) role
+  - Entra role required: None
+
+- **Configuring Table Permissions**: 
+  - Requires: System Customizer (Dataverse) or Website Owner (Dataverse) role
+  - Entra role required: None
+
+- **Managing Site Visibility**: 
+  - Requires: System Administrator (Dataverse) or Website Owner (Dataverse) role
+  - Entra role required: None
+
+- **Managing App Registration (for site ownership)**: 
+  - Requires: None (Dataverse role)
+  - Entra role required: Application Owner (Entra), Application Administrator (Entra), or Global Administrator (Entra)
+
+- **Creating/Deleting Environments**: 
+  - Requires: None (Dataverse role)
+  - Entra role required: Power Platform Administrator (Entra) or Global Administrator (Entra)
 
 **Reference**: [Roles required for website administration](https://learn.microsoft.com/en-us/power-pages/admin/admin-roles)
 
@@ -220,7 +287,17 @@ Protect your site from common web attacks:
 
 ## Microsoft Entra Application Ownership
 
-To manage a Power Pages site that's already provisioned, you must be an owner of the Microsoft Entra application connected to your website.
+To manage a Power Pages site that's already provisioned, you must be an owner of the Microsoft Entra application connected to your website. This is an **Entra role requirement**, not a Power Platform environment role requirement.
+
+### Understanding App Registration Ownership
+
+When a Power Pages site is provisioned, a Microsoft Entra app registration is automatically created. This app registration represents your Power Pages site in Microsoft Entra ID. To manage the site's app registration (which is required for certain administrative tasks), you need one of the following **Entra roles**:
+
+- **Application Owner** (Entra role) - Can manage the specific app registration
+- **Application Administrator** (Entra role) - Can manage all app registrations
+- **Global Administrator** (Entra role) - Full access to all Entra resources
+
+**Important**: Application Owner is an Entra role assigned at the app registration level, not a Power Platform environment role. This is separate from the Website Owner role (which is a Dataverse role for managing site settings).
 
 ### Adding Yourself as Owner
 
@@ -234,7 +311,7 @@ If you need to manage the PawsFirst site but aren't the original creator:
 6. Add yourself (or your group) as an owner of the app registration
 7. Reopen the site details page in Power Platform Admin Center
 
-**Note**: The current application owner or a global administrator can perform this task.
+**Note**: The current application owner (Entra role), Application Administrator (Entra role), or Global Administrator (Entra role) can perform this task. This requires Entra role permissions, not Power Platform environment role permissions.
 
 ---
 
