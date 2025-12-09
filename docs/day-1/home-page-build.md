@@ -941,9 +941,9 @@ After building the home page, verify:
 
 After completing the home page:
 
-1. Work through [User Stories](user-stories.md) to add Liquid-powered dynamic features
-2. Create additional pages (My Pets, Book Appointment, Services)
-3. Reference [Data Model Design](data-model.md) for table structure details
+1. Reference [Data Model Design](data-model.md) for table structure details
+2. Complete [Lists and Views](../day-2/lists-and-views.md) to learn Entity Lists for displaying Dataverse data
+3. On Day 2, work through [User Stories](user-stories.md) to learn Liquid syntax fundamentals
 
 ---
 

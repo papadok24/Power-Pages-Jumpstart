@@ -6,7 +6,8 @@ This guide walks through creating an anonymous Entity Form for booking requests,
 
 **Prerequisites**: 
 - Complete [Data Model Design](../day-1/data-model.md) - Booking Request and Appointment Slot tables created
-- Complete [Identity and Contacts](identity-and-contacts.md) - Understand anonymous access patterns
+
+**Note**: This guide covers anonymous access configuration and table permissions for anonymous users. For deeper understanding of Power Pages authentication architecture, see [Identity and Contacts](identity-and-contacts.md).
 
 ---
 

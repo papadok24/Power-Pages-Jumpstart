@@ -476,6 +476,7 @@ Consider adding:
 
 ## Next Steps
 
-- **[Lists and Views](lists-and-views.md)** - Display booking requests to authenticated users
 - **[Custom Web Templates](custom-web-templates.md)** - Build custom components for enhanced UX
+
+**Note**: [Lists and Views](lists-and-views.md) should already be completed as it's covered on Day 1.
 

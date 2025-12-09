@@ -342,6 +342,7 @@ This ensures users only see data for their own pets.
 
 ## Next Steps
 
-- **[Booking Request Form](booking-request-form.md)** - Create anonymous Entity Form for booking requests
 - **[Power Automate Integration](power-automate-integration.md)** - Build user onboarding automation flow
+
+**Note**: [Booking Request Form](booking-request-form.md) should already be completed as it's covered earlier in Day 2.
 

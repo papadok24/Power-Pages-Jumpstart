@@ -131,8 +131,8 @@ Before starting, ensure you have:
 After completing this guide:
 
 1. Review the [Home Page Build Guide](home-page-build.md) to create your first page with Liquid
-2. Work through [User Stories](user-stories.md) to learn Liquid syntax fundamentals
-3. Reference [Data Model Design](data-model.md) for table structure details
+2. Reference [Data Model Design](data-model.md) for table structure details
+3. Complete [Lists and Views](../day-2/lists-and-views.md) to learn Entity Lists for displaying Dataverse data
 
 ---
 

@@ -90,14 +90,14 @@ The portal exposes only three customer-facing tables through Entity Lists:
 | 1:30-2:15 | **Demo: Create PawsFirst Site** - Starting from blank template |
 | 2:15-2:30 | **Break** |
 | 2:30-3:15 | **Dataverse Modeling** - Pets, Appointments, Services tables |
-| 3:15-4:00 | **Liquid Syntax Fundamentals** - Objects, tags, filters |
+| 3:15-4:00 | **Lists and Views** - OOTB Entity Lists for customer dashboard (Pets, Booking Requests, Appointments) |
 
 ### Day 2: Building Features (~4 hours)
 
 | Time | Topic |
 |------|-------|
-| 0:00-0:30 | **Lists and Views** - OOTB Entity Lists for customer dashboard (Pets, Booking Requests, Appointments) |
-| 0:30-1:00 | **Build: Anonymous Booking Form** - OOTB Entity Forms for public access |
+| 0:00-0:30 | **Build: Anonymous Booking Form** - OOTB Entity Forms for public access |
+| 0:30-1:00 | **Liquid Syntax Fundamentals** - Objects, tags, filters |
 | 1:00-1:30 | **Power Automate Integration** - Cloud flows triggered from Power Pages |
 | 1:30-2:00 | **Identity Providers Deep Dive** - Entra ID configuration, Contact system architecture |
 | 2:00-2:15 | **Break** |
@@ -284,15 +284,15 @@ The script will:
 
 - **[Site Provisioning Guide](docs/day-1/site-provisioning-guide.md)** - Step-by-step instructions for creating the Power Pages site with Microsoft Entra ID authentication
 - **[Home Page Build](docs/day-1/home-page-build.md)** - Theme/brand setup and building the home page with Design Studio low-code builder
-- **[User Stories](docs/day-1/user-stories.md)** - 8 Liquid-focused user stories covering Pets, Appointments, and Services interactions
 - **[Data Model Design](docs/day-1/data-model.md)** - Complete Dataverse entity schemas, relationships, and table permissions for Pets, Services, Appointments, and Documents
+- **[Lists and Views](docs/day-2/lists-and-views.md)** - OOTB Entity Lists for customer dashboard (Pets, Booking Requests, Appointments) and Dataverse views
 
 ### Day 2: Building Features
 
-- **[Identity and Contacts](docs/day-2/identity-and-contacts.md)** - Power Pages authentication architecture, Microsoft Entra ID integration, and Contact system
 - **[Booking Request Form](docs/day-2/booking-request-form.md)** - Step-by-step guide for creating anonymous OOTB Entity Forms
+- **[User Stories](docs/day-1/user-stories.md)** - 8 Liquid-focused user stories covering Pets, Appointments, and Services interactions
+- **[Identity and Contacts](docs/day-2/identity-and-contacts.md)** - Power Pages authentication architecture, Microsoft Entra ID integration, and Contact system
 - **[Power Automate Integration](docs/day-2/power-automate-integration.md)** - Cloud flow setup for user onboarding automation
-- **[Lists and Views](docs/day-2/lists-and-views.md)** - OOTB Entity Lists for customer dashboard (Pets, Booking Requests, Appointments) and Dataverse views
 - **[Custom Web Templates](docs/day-2/custom-web-templates.md)** - Optional advanced topic on web template components with manifest
 
 ### Day 3: Advanced Features

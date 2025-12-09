@@ -6,8 +6,9 @@ This guide covers creating and configuring Entity Lists in Power Pages to displa
 
 **Prerequisites**:
 - Complete [Data Model Design](../day-1/data-model.md) - Tables and relationships created
-- Complete [Identity and Contacts](identity-and-contacts.md) - Table permissions configured
 - Understand Dataverse views concept
+
+**Note**: Table permissions will be configured as part of this guide. Basic table permission concepts are covered in the Data Model Design document.
 
 ---
 
