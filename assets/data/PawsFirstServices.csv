@@ -1,0 +1,9 @@
+pa911_name,pa911_description,pa911_duration,pa911_price,statecode
+"Annual Wellness Exam","Comprehensive annual exam including physical exam and preventative health review.",30,75,0
+"Vaccination Visit","Core vaccinations and booster shots as recommended for the pet’s age and species.",20,55,0
+"New Patient Intake","Extended first-time visit to review history, perform exam, and create care plan.",45,95,0
+"Sick Visit","Problem-focused exam for illness, injury, or new symptoms.",30,85,0
+"Dental Cleaning","Routine dental cleaning under anesthesia (pre-op exam required).",90,325,0
+"Grooming – Standard Bath","Bath, nail trim, ear cleaning, and brush-out (dogs and cats only).",60,65,0
+"Surgery Consultation","Pre-surgical consultation to review options, risks, and recovery expectations.",40,120,0
+"Behavior Consultation","Consultation for behavior issues and training recommendations.",60,140,0
