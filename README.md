@@ -29,6 +29,56 @@ A modern appointment booking portal for a veterinary clinic where pet owners can
 
 ---
 
+## Portal Information Architecture
+
+The PawsFirst portal is organized into two main zones: **public** (accessible to anonymous users) and **authenticated** (requires login). The portal focuses on three customer-facing data areas: **Pets**, **Booking Requests**, and **Appointments**.
+
+### Public Zone
+
+| Page | URL | Purpose | Access |
+|------|-----|---------|--------|
+| **Home** | `/` | Marketing/overview page | Anonymous & Authenticated |
+| **Book Appointment** | `/book-appointment` | Anonymous booking request form | Anonymous & Authenticated |
+
+### Authenticated Zone
+
+| Page | URL | Purpose | Access |
+|------|-----|---------|--------|
+| **Dashboard** | `/dashboard` | **Default landing page for signed-in customers** - Summary view of Pets, Active Appointments, and Booking Requests | Authenticated Users |
+| **My Pets** | `/my-pets` | Full list of user's pets with add/edit capability | Authenticated Users |
+| **My Appointments** | `/my-appointments` | Full list of appointments (Active and History views) | Authenticated Users |
+| **My Booking Requests** | `/my-booking-requests` | Full list of booking requests tied to the user's Contact | Authenticated Users |
+| **Profile** | `/profile` | Manage contact details and profile information | Authenticated Users |
+
+### Dashboard Architecture
+
+The **Dashboard** is the primary teaching example for building a customer dashboard in Power Pages. It displays:
+
+- **My Pets Summary**: Top 5 pets with "View All" link to `/my-pets`
+- **Active Appointments Summary**: Top 5 active appointments with "View All" link to `/my-appointments`
+- **Booking Requests Summary**: Top 5 booking requests with "View All" link to `/my-booking-requests`
+
+Each summary section uses Entity Lists with `recordsperpage:5` to limit display, with full lists available on dedicated pages.
+
+### Data Architecture
+
+The portal exposes only three customer-facing tables through Entity Lists:
+- **Pets** (`pa911_pet`) - Managed via My Pets page
+- **Booking Requests** (`pa911_bookingrequest`) - Created from public form, viewed on Dashboard and My Booking Requests page
+- **Appointments** (`appointment`) - Displayed as Active and History on Dashboard and My Appointments page
+
+**Supporting tables** (Service, Appointment Slot) are used in booking workflows but are not exposed as customer-facing lists. See [Data Model Design](docs/day-1/data-model.md) for details.
+
+### Navigation Flow
+
+1. **Anonymous users** can access Home and Book Appointment pages
+2. **After booking**, Power Automate creates Contact and sends invitation
+3. **Authenticated users** land on Dashboard after login (configured via site settings/login redirect)
+4. **Dashboard** provides quick access to all customer data with "View All" links to detail pages
+5. **Detail pages** (My Pets, My Appointments, My Booking Requests) show full Entity Lists with search, sort, and pagination
+
+---
+
 ## 3-Day Class Outline
 
 ### Day 1: Foundation (~4 hours)
@@ -46,14 +96,14 @@ A modern appointment booking portal for a veterinary clinic where pet owners can
 
 | Time | Topic |
 |------|-------|
-| 0:00-0:30 | **Lists and Views** - OOTB Entity Lists, filtering, and customization |
+| 0:00-0:30 | **Lists and Views** - OOTB Entity Lists for customer dashboard (Pets, Booking Requests, Appointments) |
 | 0:30-1:00 | **Build: Anonymous Booking Form** - OOTB Entity Forms for public access |
 | 1:00-1:30 | **Power Automate Integration** - Cloud flows triggered from Power Pages |
 | 1:30-2:00 | **Identity Providers Deep Dive** - Entra ID configuration, Contact system architecture |
 | 2:00-2:15 | **Break** |
 | 2:15-2:30 | **Build: User Onboarding Flow** - Review portal invitation automation flow |
 | 2:30-3:00 | **Custom Web Templates** - Manifest structure, parameters (optional) |
-| 3:00-3:30 | **Build: Service Catalog** - Display available services and slots |
+| 3:00-3:30 | **Build: Customer Dashboard** - Create dashboard page with summary Entity Lists for Pets, Appointments, and Booking Requests |
 | 3:30-4:00 | **Wrap-up** - Day 2 review, Q&A, preview Day 3 |
 
 ### Day 3: Advanced Features (~4 hours)
@@ -148,14 +198,14 @@ Power-Pages-Jumpstart/
 │   ├── day-2/                   # Day 2 reference materials
 │   └── day-3/                   # Day 3 reference materials
 ├── src/
-│   ├── site/                    # PAC CLI: Power Pages site metadata
-│   │   ├── web-pages/           # Web page definitions
+│   ├── pawsfirst---pawsfirst-pa911/  # PAC CLI: Power Pages site metadata
+│   │   ├── web-pages/           # Web page definitions (Home, Dashboard, My Pets, etc.)
 │   │   ├── web-templates/       # Custom web template components
 │   │   ├── content-snippets/    # Reusable content snippets
 │   │   ├── web-files/           # Static files (CSS, JS, images)
-│   │   └── site-settings/       # Site configuration settings
-│   └── solution/                # PAC CLI: Power Platform solution
-│       ├── Entities/            # Dataverse tables (Pets, Appointments, Services)
+│   │   └── basic-forms/        # Entity Forms (Booking Request, etc.)
+│   └── PowerPagesJumpstartBase/  # PAC CLI: Power Platform solution
+│       ├── Entities/            # Dataverse tables (Pets, Appointments, Services, etc.)
 │       ├── WebResources/       # Custom JavaScript/CSS files
 │       └── Other/              # Other solution components
 ├── scripts/                     # Helper scripts (PAC CLI commands, automation)
@@ -203,14 +253,13 @@ pac solution export --path ./src/solution
 - **[Home Page Build](docs/day-1/home-page-build.md)** - Theme/brand setup and building the home page with Design Studio low-code builder
 - **[User Stories](docs/day-1/user-stories.md)** - 8 Liquid-focused user stories covering Pets, Appointments, and Services interactions
 - **[Data Model Design](docs/day-1/data-model.md)** - Complete Dataverse entity schemas, relationships, and table permissions for Pets, Services, Appointments, and Documents
-- **[Recurring Appointments Guide](docs/day-1/recurring-appointments.md)** - OOTB RecurringAppointmentMaster integration guide with patterns and examples
 
 ### Day 2: Building Features
 
 - **[Identity and Contacts](docs/day-2/identity-and-contacts.md)** - Power Pages authentication architecture, Microsoft Entra ID integration, and Contact system
 - **[Booking Request Form](docs/day-2/booking-request-form.md)** - Step-by-step guide for creating anonymous OOTB Entity Forms
 - **[Power Automate Integration](docs/day-2/power-automate-integration.md)** - Cloud flow setup for user onboarding automation
-- **[Lists and Views](docs/day-2/lists-and-views.md)** - OOTB Entity Lists configuration and Dataverse views
+- **[Lists and Views](docs/day-2/lists-and-views.md)** - OOTB Entity Lists for customer dashboard (Pets, Booking Requests, Appointments) and Dataverse views
 - **[Custom Web Templates](docs/day-2/custom-web-templates.md)** - Optional advanced topic on web template components with manifest
 
 ### Day 3: Advanced Features

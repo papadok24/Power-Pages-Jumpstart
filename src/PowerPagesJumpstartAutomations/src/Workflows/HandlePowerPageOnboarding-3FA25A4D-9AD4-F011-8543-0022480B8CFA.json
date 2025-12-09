@@ -1,0 +1,484 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "pa911_sharedcommondataserviceforapps_e7cd2"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_office365": {
+        "api": {
+          "name": "shared_office365"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedoffice365_7ea08"
+        },
+        "runtimeSource": "invoker"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "PPJ - User Management App Secret (pa911_PPJUserManagementAppSecret)": {
+          "defaultValue": "~9B8Q~47uQiTZJz_ihZxi_CKcPpltvJK4MA_-cVy",
+          "type": "String",
+          "metadata": {
+            "schemaName": "pa911_PPJUserManagementAppSecret"
+          }
+        },
+        "PPJ - User Management App Id (pa911_PPJUserManagementAppId)": {
+          "defaultValue": "605c5d3f-95a9-4b26-a08e-4bbce3be8ccf",
+          "type": "String",
+          "metadata": {
+            "schemaName": "pa911_PPJUserManagementAppId"
+          }
+        },
+        "PPJ - User Management App Tenant Id (pa911_PPJUserManagementAppTenantId)": {
+          "defaultValue": "0f4c92b1-11f2-4040-9a14-4de54c04be80",
+          "type": "String",
+          "metadata": {
+            "schemaName": "pa911_PPJUserManagementAppTenantId"
+          }
+        },
+        "PPJ - Power Page Url (pa911_PPJPowerPageUrl)": {
+          "defaultValue": "https://pawsfirst-pa911.powerappsportals.com",
+          "type": "String",
+          "metadata": {
+            "schemaName": "pa911_PPJPowerPageUrl"
+          }
+        },
+        "PPJ - Power Page Identity Provider (pa911_PPJPowerPageIdentityProvider)": {
+          "defaultValue": "https://sts.windows.net",
+          "type": "String",
+          "metadata": {
+            "schemaName": "pa911_PPJPowerPageIdentityProvider",
+            "description": "Default value for Entra Id authentication"
+          }
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Contact",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "b6982924-f395-4182-be74-4fb2b34f53a8"
+          }
+        }
+      },
+      "actions": {
+        "Get_Contact_Record": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "contacts",
+              "recordId": "@triggerBody()['text']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "ec231d60-5817-4141-a73a-763e724d4a4c"
+          }
+        },
+        "Initialize_Entra_Object_Id": {
+          "type": "InitializeVariable",
+          "description": "This initially is set from the User Name field on the contact record. If this exists this means the user has been onboarded before. New users should initial be blank.",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Entra Object Id",
+                "type": "string",
+                "value": "@outputs('Get_Contact_Record')?['body/adx_identity_username']"
+              }
+            ]
+          },
+          "runAfter": {
+            "Get_Contact_Record": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d903c3c1-fd6a-4e8e-b7f5-f52a6592a249"
+          }
+        },
+        "Contact_does_not_have_User_Name": {
+          "type": "If",
+          "expression": {
+            "equals": [
+              "@variables('Entra Object Id')",
+              "@null"
+            ]
+          },
+          "actions": {
+            "Create_User_Invitation_in_Entra": {
+              "type": "Http",
+              "inputs": {
+                "uri": "https://graph.microsoft.com/v1.0/invitations",
+                "method": "POST",
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "body": {
+                  "invitedUserEmailAddress": "@{outputs('Get_Contact_Record')?['body/emailaddress1']}",
+                  "inviteRedirectUrl": "@{parameters('PPJ - Power Page Url (pa911_PPJPowerPageUrl)')}/signin?returnUrl=/my-apps",
+                  "invitedUserDisplayName": "@{outputs('Get_Contact_Record')?['body/fullname']}"
+                },
+                "authentication": {
+                  "type": "ActiveDirectoryOAuth",
+                  "authority": "https://login.microsoftonline.com/",
+                  "tenant": "@{parameters('PPJ - User Management App Tenant Id (pa911_PPJUserManagementAppTenantId)')}",
+                  "audience": "https://graph.microsoft.com",
+                  "clientId": "@{parameters('PPJ - User Management App Id (pa911_PPJUserManagementAppId)')}",
+                  "secret": "@{parameters('PPJ - User Management App Secret (pa911_PPJUserManagementAppSecret)')}"
+                }
+              },
+              "runtimeConfiguration": {
+                "contentTransfer": {
+                  "transferMode": "Chunked"
+                }
+              }
+            },
+            "Set_Entra_Object_Id_to_new_User": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Entra Object Id",
+                "value": "@body('Create_User_Invitation_in_Entra')?['invitedUser']['id']"
+              },
+              "runAfter": {
+                "Create_User_Invitation_in_Entra": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Terminate": {
+              "type": "Terminate",
+              "inputs": {
+                "runStatus": "Failed",
+                "runError": {
+                  "code": "@outputs('Create_User_Invitation_in_Entra')?['statusCode']",
+                  "message": "@body('Create_User_Invitation_in_Entra')"
+                }
+              },
+              "runAfter": {
+                "Create_User_Invitation_in_Entra": [
+                  "Failed",
+                  "TimedOut"
+                ]
+              }
+            },
+            "Set_Invite_Redemption_Url": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "Invite Url",
+                "value": "@body('Create_User_Invitation_in_Entra')?['inviteRedeemUrl']"
+              },
+              "runAfter": {
+                "Set_Entra_Object_Id_to_new_User": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "else": {
+            "actions": {
+              "Set_Entra_Object_Id_to_Existing": {
+                "type": "SetVariable",
+                "inputs": {
+                  "name": "Entra Object Id",
+                  "value": "@outputs('Get_Contact_Record')?['body/adx_identity_username']"
+                }
+              },
+              "Get_Entra_Account": {
+                "type": "Http",
+                "inputs": {
+                  "uri": "https://graph.microsoft.com/v1.0/users/@{variables('Entra Object Id')}?$select=id,displayName,accountEnabled",
+                  "method": "GET",
+                  "headers": {
+                    "Content-Type": "application/json"
+                  },
+                  "authentication": {
+                    "type": "ActiveDirectoryOAuth",
+                    "authority": "https://login.microsoftonline.com/",
+                    "tenant": "@{parameters('PPJ - User Management App Tenant Id (pa911_PPJUserManagementAppTenantId)')}",
+                    "audience": "https://graph.microsoft.com",
+                    "clientId": "@{parameters('PPJ - User Management App Id (pa911_PPJUserManagementAppId)')}",
+                    "secret": "@{parameters('PPJ - User Management App Secret (pa911_PPJUserManagementAppSecret)')}"
+                  }
+                },
+                "runAfter": {
+                  "Set_Entra_Object_Id_to_Existing": [
+                    "Succeeded"
+                  ]
+                },
+                "runtimeConfiguration": {
+                  "contentTransfer": {
+                    "transferMode": "Chunked"
+                  }
+                }
+              },
+              "Account_is_Enabled": {
+                "type": "If",
+                "expression": {
+                  "and": [
+                    {
+                      "equals": [
+                        "",
+                        ""
+                      ]
+                    }
+                  ]
+                },
+                "actions": {
+                  "End_Flow_-_Entra_User_Exists_and_is_Enabled": {
+                    "type": "Terminate",
+                    "inputs": {
+                      "runStatus": "Succeeded"
+                    }
+                  }
+                },
+                "else": {
+                  "actions": {
+                    "Enable_Entra_Account": {
+                      "type": "Http",
+                      "inputs": {
+                        "uri": "https://graph.microsoft.com/v1.0/users/@{variables('Entra Object Id')}",
+                        "method": "PATCH",
+                        "headers": {
+                          "Content-Type": "application/json"
+                        },
+                        "body": {
+                          "accountEnabled": true
+                        },
+                        "authentication": {
+                          "type": "ActiveDirectoryOAuth",
+                          "authority": "https://login.microsoftonline.com/",
+                          "tenant": "@{parameters('PPJ - User Management App Tenant Id (pa911_PPJUserManagementAppTenantId)')}",
+                          "audience": "https://graph.microsoft.com",
+                          "clientId": "@{parameters('PPJ - User Management App Id (pa911_PPJUserManagementAppId)')}",
+                          "secret": "@{parameters('PPJ - User Management App Secret (pa911_PPJUserManagementAppSecret)')}"
+                        }
+                      },
+                      "runtimeConfiguration": {
+                        "contentTransfer": {
+                          "transferMode": "Chunked"
+                        }
+                      }
+                    }
+                  }
+                },
+                "runAfter": {
+                  "Get_Entra_Account": [
+                    "Succeeded"
+                  ]
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Initialize_Invite_Redemption_Url": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "31fe0dce-a38a-426b-9770-2cf02bde7725"
+          }
+        },
+        "Respond_to_Parent_Flow": {
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": {}
+            },
+            "statusCode": 200
+          },
+          "runAfter": {
+            "Send_Invitation_Email": [
+              "SUCCEEDED"
+            ]
+          }
+        },
+        "Initialize_Invite_Redemption_Url": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Invite Url",
+                "type": "string"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_Entra_Object_Id": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Update_Contact_with_Entra_User_Details": {
+          "type": "OpenApiConnection",
+          "description": "We also set fields required for Power Pages login handshake to work.",
+          "inputs": {
+            "parameters": {
+              "entityName": "contacts",
+              "recordId": "@outputs('Get_Contact_Record')?['body/contactid']",
+              "item/adx_identity_emailaddress1confirmed": true,
+              "item/adx_identity_lockoutenabled": true,
+              "item/adx_identity_logonenabled": true,
+              "item/adx_identity_securitystamp": "@guid()",
+              "item/adx_identity_username": "@variables('Entra Object Id')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateOnlyRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Contact_does_not_have_User_Name": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Add_External_Identity_for_Power_Pages_Authentication": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "adx_externalidentities",
+              "item/adx_contactid@odata.bind": "contacts(@{outputs('Update_Contact_with_Entra_User_Details')?['body/contactid']})",
+              "item/adx_identityprovidername": "@{parameters('PPJ - Power Page Identity Provider (pa911_PPJPowerPageIdentityProvider)')}/@{parameters('PPJ - User Management App Tenant Id (pa911_PPJUserManagementAppTenantId)')}/",
+              "item/adx_username": "@variables('Entra Object Id')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Update_Contact_with_Entra_User_Details": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Query_Authenticated_Permissions": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "powerpagecomponents",
+              "fetchXml": "<fetch>\n  <entity name=\"powerpagecomponent\">\n    <filter>\n      <condition attribute=\"powerpagecomponenttype\" operator=\"eq\" value=\"11\" />\n      <condition attribute=\"name\" operator=\"eq\" value=\"Authenticated Users\" />\n    </filter>\n  </entity>\n</fetch>"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Add_External_Identity_for_Power_Pages_Authentication": [
+              "SUCCEEDED"
+            ]
+          }
+        },
+        "Get_Webrole_by_ID": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "mspp_webroles",
+              "recordId": "@first(outputs('Query_Authenticated_Permissions')?['body/value'])?['powerpagecomponentid']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Query_Authenticated_Permissions": [
+              "SUCCEEDED"
+            ]
+          }
+        },
+        "Relate_rows_-_Contact_Web_Role": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "contacts",
+              "recordId": "@outputs('Get_Contact_Record')?['body/contactid']",
+              "associationEntityRelationship": "powerpagecomponent_mspp_webrole_contact",
+              "item/@odata.id": "@outputs('Get_Webrole_by_ID')?['body/@odata.id']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "AssociateEntities",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Get_Webrole_by_ID": [
+              "SUCCEEDED"
+            ]
+          }
+        },
+        "Send_Invitation_Email": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "emailMessage/To": "@outputs('Get_Contact_Record')?['body/emailaddress1']",
+              "emailMessage/Subject": "You're Invited! 🎉",
+              "emailMessage/Body": "<p class=\"editor-paragraph\">Hi @{outputs('Get_Contact_Record')?['body/firstname']},<br><br>Welcome to the PawsFirst Pet Portal!<br><br>You’re all set to manage your pet’s care online. With your new account, you can:<br><br><br>- View upcoming and past appointments<br><br>- Request new appointments<br><br>- Access vaccine records and visit summaries<br><br>- Update your contact and pet information<br><br>To get started, redeem your invite here:<br><br>@{variables('Invite Url')}<br><br>If you ever need help with your account, contact us at [Clinic Email] or [Clinic Phone].<br><br>Thank you for trusting us with your pet's care. We’re honored to be part of your pet’s health journey.<br><br>Warmly,<br><br>PawsFirst Staff</p>",
+              "emailMessage/Importance": "Normal"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+              "operationId": "SendEmailV2",
+              "connectionName": "shared_office365"
+            }
+          },
+          "runAfter": {
+            "Relate_rows_-_Contact_Web_Role": [
+              "SUCCEEDED"
+            ]
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

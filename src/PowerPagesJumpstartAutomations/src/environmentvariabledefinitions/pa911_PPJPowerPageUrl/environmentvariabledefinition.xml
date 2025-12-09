@@ -1,0 +1,10 @@
+<environmentvariabledefinition schemaname="pa911_PPJPowerPageUrl">
+  <displayname default="PPJ - Power Page Url">
+    <label description="PPJ - Power Page Url" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

@@ -39,13 +39,7 @@ This document outlines the complete data model design for the PawsFirst Veterina
          │                                  ┌──────▼──────────┐
          │                                  │   Appointment  │ (OOTB Activity)
          │                                  │                │
-         │                                  └──────┬─────────┘
-         │                                         │
-         │                                         │ M
-         │                                  ┌──────▼──────────┐
-         │                                  │ RecurringAppt   │ (OOTB Activity)
-         │                                  │    Master       │
-         │                                  └─────────────────┘
+         │                                  └────────────────┘
 ```
 
 **Relationship Summary:**
@@ -56,6 +50,35 @@ This document outlines the complete data model design for the PawsFirst Veterina
 - **Service** (1) → **Appointment Slot** (M): Multiple slots per service
 - **Appointment Slot** (1) ← **Booking Request** (M): One slot can have multiple requests (triage)
 - **Pet** → **SharePoint Documents**: Pet medical documents stored in SharePoint (not a Dataverse table)
+
+---
+
+## Portal-Facing Tables
+
+The PawsFirst portal exposes only a subset of tables directly to customers. This section clarifies which tables are customer-facing versus supporting/internal.
+
+### Portal-Facing Core Tables
+
+These tables are directly exposed to customers through Entity Lists, Entity Forms, and dashboard views:
+
+| Table | Logical Name | Purpose | Portal Usage |
+|-------|--------------|---------|--------------|
+| **Contact** | `contact` | Pet owner identity | Users manage their own profile; used for authentication and data scoping |
+| **Pet** | `pa911_pet` | Pet information | Customers view and manage their pets via **My Pets** list and forms; used to filter appointments |
+| **Booking Request** | `pa911_bookingrequest` | Appointment booking requests | Created from public **Book Appointment** page; authenticated users view their requests on Dashboard and **My Booking Requests** page |
+| **Appointment** | `appointment` | Scheduled appointments | Customers view **Active Appointments** and **Appointment History** on Dashboard and **My Appointments** page; status tracked via `pa911_servicestatus` |
+
+### Supporting/Internal Tables
+
+These tables support the booking and appointment flow but are **not exposed as customer-facing lists**:
+
+| Table | Logical Name | Purpose | Portal Usage |
+|-------|--------------|---------|--------------|
+| **Service** | `pa911_service` | Available veterinary services | Used in booking form dropdowns and appointment displays; not shown as a standalone list to customers |
+| **Appointment Slot** | `pa911_appointmentslot` | Available time slots | Used in booking form to show available times; managed by staff, not exposed as a list to customers |
+| **SharePoint Documents** | N/A | Pet medical documents | Accessed via Pet detail pages and document management features; not a Dataverse table |
+
+**Key Architectural Principle**: Customers interact with **Pets**, **Booking Requests**, and **Appointments** through dedicated portal pages. Services and Appointment Slots are reference data that support the booking workflow but remain behind-the-scenes.
 
 ---
 
@@ -82,6 +105,12 @@ This document outlines the complete data model design for the PawsFirst Veterina
 - Used for portal authentication (external users)
 - Table permissions must be configured for Contact read/write access
 - Users can only see/edit their own Contact record
+
+**Portal Usage**:
+- Contact records serve as the identity for external portal users
+- Users manage their profile information via the **Profile** page
+- Contact ID is used to scope all related data (Pets, Appointments, Booking Requests) to the current user
+- Contact is created automatically when users register or are invited via Power Automate flow
 
 **Reference**: [Contact entity documentation](https://learn.microsoft.com/en-us/dynamics365/customer-engagement/web-api/contact)
 
@@ -131,6 +160,13 @@ This document outlines the complete data model design for the PawsFirst Veterina
 - **Write**: Users can create/update pets where `pa911_petowner` = current user's Contact
 - **Delete**: Optional - typically restricted to prevent accidental deletion
 
+**Portal Usage**:
+- Customers view and manage their pets via the **My Pets** page (Entity List)
+- Pet records are displayed on the **Dashboard** in a summary section
+- Pet information is used to filter and display appointments (only appointments for the user's pets are shown)
+- Pet detail pages allow customers to view pet information and upload/manage documents via SharePoint integration
+- Pet records are created and edited through Entity Forms accessible from the My Pets list
+
 ---
 
 ### Service (Custom Entity)
@@ -166,6 +202,12 @@ This document outlines the complete data model design for the PawsFirst Veterina
 - Grooming (60 minutes, $50)
 - Surgery Consultation (45 minutes, $150)
 
+**Portal Usage**:
+- **Not exposed as a customer-facing list** - Services are reference data used in booking workflows
+- Services appear in dropdowns on the **Book Appointment** form (anonymous booking request)
+- Service information is displayed within appointment views and detail pages
+- Service data is managed by staff in model-driven apps, not by customers in the portal
+
 ---
 
 ### Appointment (OOTB Activity Entity)
@@ -184,8 +226,6 @@ This document outlines the complete data model design for the PawsFirst Veterina
 | Scheduled Start | `scheduledstart` | Date and Time | Yes | Appointment start time |
 | Scheduled End | `scheduledend` | Date and Time | Yes | Appointment end time |
 | Regarding | `regardingobjectid` | Lookup (Polymorphic) | No | Links to Pet entity |
-| Status | `statecode` | Status | Yes | Open (0) / Completed (1) / Cancelled (2) |
-| Status Reason | `statuscode` | Status Reason | Yes | See Status Reasons below |
 
 **Custom Columns Added**:
 
@@ -193,12 +233,9 @@ This document outlines the complete data model design for the PawsFirst Veterina
 |--------|--------------|------|----------|-------|
 | Pet | `pa911_pet` | Lookup (Pet) | Yes | Which pet the appointment is for |
 | Service | `pa911_service` | Lookup (Service) | Yes | Service being performed |
-| Service Status | `pa911_servicestatus` | Choice | Yes | Custom status tracking |
+| Service Status | `pa911_servicestatus` | Choice | Yes | **Primary status field** - Used for all appointment status tracking |
 
-**Status Reasons** (OOTB `statuscode`):
-- **Open**: Requested (1), Confirmed (2), Arrived (3)
-- **Completed**: Completed (4)
-- **Cancelled**: Cancelled (5), No-Show (6)
+**Note**: This implementation uses only the custom `pa911_servicestatus` field for status tracking. The OOTB `statecode` and `statuscode` fields are not used.
 
 **Custom Choice Values - Service Status** (`pa911_servicestatus`):
 - `144400000` - Requested
@@ -211,63 +248,21 @@ This document outlines the complete data model design for the PawsFirst Veterina
 - **Many-to-One** with Pet (`pa911_pet` → `pa911_pet.pa911_petid`)
 - **Many-to-One** with Pet (via `regardingobjectid` polymorphic lookup)
 - **Many-to-One** with Service (`pa911_service` → `pa911_service.pa911_serviceid`)
-- **Many-to-One** with RecurringAppointmentMaster (`seriesid` → `activityid`)
 
 **Table Permissions** (Power Pages):
 - **Read**: Users can read appointments where `pa911_pet.pa911_petowner` = current user's Contact
 - **Write**: Users can create appointments for their own pets; update/cancel their own appointments
 - **Delete**: Typically restricted (use cancellation status instead)
 
+**Portal Usage**:
+- Customers view appointments through **My Appointments** page with two views:
+  - **My Active Appointments**: Shows appointments with status "Requested" or "Confirmed" (`pa911_servicestatus`)
+  - **My Appointment History**: Shows completed, cancelled, or no-show appointments
+- Active appointments are displayed on the **Dashboard** in a summary section
+- Appointment status is tracked via the `pa911_servicestatus` field (not the OOTB status fields)
+- Customers can view appointment details including scheduled time, pet, service, and status
+
 **Reference**: [Appointment entity documentation](https://learn.microsoft.com/en-us/dynamics365/customer-engagement/web-api/appointment)
-
----
-
-### RecurringAppointmentMaster (OOTB Activity Entity)
-
-**Purpose**: Manages recurring appointment series (e.g., monthly grooming, quarterly checkups).
-
-**Table Name**: `recurringappointmentmaster` (OOTB)  
-**Display Name**: Recurring Appointment Series
-
-**Key Columns**:
-
-| Column | Logical Name | Type | Required | Notes |
-|--------|--------------|------|----------|-------|
-| Primary Key | `activityid` | GUID | Yes | OOTB primary key |
-| Subject | `subject` | Single Line of Text | Yes | Series title |
-| Pattern Start Date | `patternstartdate` | Date and Time | Yes | First occurrence date |
-| Pattern End Date | `patternenddate` | Date and Time | No | Last occurrence (null = no end) |
-| Recurrence Pattern | `recurrencepatterntype` | Choice | Yes | Daily, Weekly, Monthly, Yearly |
-| Interval | `interval` | Whole Number | Yes | Frequency (e.g., every 2 weeks) |
-| Days of Week | `daysofweekmask` | Integer | No | Bitmask for weekly patterns |
-| Day of Month | `dayofmonth` | Integer | No | For monthly patterns |
-| Regarding | `regardingobjectid` | Lookup (Polymorphic) | No | Links to Pet entity |
-
-**Custom Columns Added**:
-
-| Column | Logical Name | Type | Required | Notes |
-|--------|--------------|------|----------|-------|
-| Pet | `pa911_pet` | Lookup (Pet) | Yes | Which pet the series is for |
-| Service | `pa911_service` | Lookup (Service) | Yes | Service for recurring appointments |
-
-**Recurrence Pattern Types** (`recurrencepatterntype`):
-- `0` - Daily
-- `1` - Weekly
-- `2` - Monthly
-- `3` - Yearly
-
-**How It Works**:
-- Dataverse automatically creates individual `appointment` instances based on the recurrence pattern
-- Uses partial expansion model (creates instances in phases, not all at once)
-- Individual instances can be modified without affecting the series
-- Deleting the master deletes all associated instances
-
-**Table Permissions** (Power Pages):
-- **Read**: Users can read recurring appointments where `pa911_pet.pa911_petowner` = current user's Contact
-- **Write**: Users can create recurring appointments for their own pets
-- **Delete**: Users can delete their own recurring appointment series
-
-**Reference**: See `docs/day-1/recurring-appointments.md` for detailed implementation guide.
 
 ---
 
@@ -307,6 +302,12 @@ This document outlines the complete data model design for the PawsFirst Veterina
 - Slots are filtered by Service type on the booking form
 - When a booking request is approved, the slot's `pa911_isavailable` is set to false
 - Slots can be reused if a booking is cancelled
+
+**Portal Usage**:
+- **Not exposed as a customer-facing list** - Appointment Slots are reference data used in booking workflows
+- Slots appear in dropdowns on the **Book Appointment** form, filtered by selected Service
+- Slot availability is managed by staff in model-driven apps
+- Customers do not see or manage slots directly; they only select from available slots when booking
 
 ---
 
@@ -369,6 +370,14 @@ This document outlines the complete data model design for the PawsFirst Veterina
 7. Staff reviews and approves/rejects in model-driven app
 8. Approved requests can be converted to actual Appointments
 
+**Portal Usage**:
+- Booking Requests are created from the public **Book Appointment** page (anonymous Entity Form)
+- After a Contact is linked (via Power Automate flow), authenticated users can view their booking requests
+- Customers see their booking requests on the **Dashboard** in a summary section
+- Full list of booking requests is available on the **My Booking Requests** page (Entity List)
+- Booking requests show status (Pending, Approved, Rejected) and can be viewed in detail
+- The `pa911_contact` lookup links the request to the user's Contact record after invitation
+
 ---
 
 ## Table Permissions Summary
@@ -383,7 +392,6 @@ This document outlines the complete data model design for the PawsFirst Veterina
 | **Appointment Slot** | All (including anonymous) | None | None |
 | **Booking Request** | Anonymous create, Self read | Anonymous create, Self write | None |
 | **Appointment** | Own pets' appointments | Own pets' appointments | None |
-| **RecurringAppointmentMaster** | Own pets' recurring | Own pets' recurring | Own pets' recurring |
 | **SharePoint Documents** | Own pets' documents (via SharePoint) | Own pets' documents (via SharePoint) | Own pets' documents (via SharePoint) |
 
 **Scope Definitions**:
@@ -408,8 +416,6 @@ This document outlines the complete data model design for the PawsFirst Veterina
 - [x] Create Pet → Contact relationship (Many-to-One)
 - [x] Create Appointment → Pet relationship (Many-to-One, custom column)
 - [x] Create Appointment → Service relationship (Many-to-One, custom column)
-- [x] Create RecurringAppointmentMaster → Pet relationship (Many-to-One, custom column)
-- [x] Create RecurringAppointmentMaster → Service relationship (Many-to-One, custom column)
 - [ ] Create Appointment Slot → Service relationship (Many-to-One)
 - [ ] Create Booking Request → Service relationship (Many-to-One)
 - [ ] Create Booking Request → Appointment Slot relationship (Many-to-One)
@@ -418,7 +424,6 @@ This document outlines the complete data model design for the PawsFirst Veterina
 ### Phase 3: Appointment Extensions
 - [x] Add custom columns to Appointment entity
 - [x] Configure Appointment → Pet polymorphic relationship (regardingobjectid)
-- [x] Test RecurringAppointmentMaster integration
 
 ### Phase 4: Power Pages Configuration
 - [ ] Configure table permissions for all entities
@@ -435,17 +440,12 @@ This document outlines the complete data model design for the PawsFirst Veterina
 3. Pet owner books first Appointment
 4. Pet owner uploads vaccination documents to SharePoint (associated with Pet record)
 
-### Scenario 2: Recurring Appointment Setup
-1. Pet owner creates RecurringAppointmentMaster for monthly grooming
-2. Dataverse generates Appointment instances automatically
-3. Pet owner can modify individual instances if needed
-
-### Scenario 3: Appointment History
+### Scenario 2: Appointment History
 1. Portal displays list of Appointments filtered by current user's pets
 2. Each appointment shows related Service information
 3. User can drill into appointment details
 
-### Scenario 4: Anonymous Booking Request
+### Scenario 3: Anonymous Booking Request
 1. Anonymous user visits site and selects a Service
 2. Available Appointment Slots are displayed (filtered by Service)
 3. User fills out Booking Request form with pet and contact details
@@ -463,7 +463,6 @@ This document outlines the complete data model design for the PawsFirst Veterina
 
 - [Microsoft Dataverse Entity Reference](https://learn.microsoft.com/en-us/dynamics365/customer-engagement/web-api/entitytypes)
 - [Power Pages Table Permissions](https://learn.microsoft.com/en-us/power-pages/configure/table-permissions)
-- [Recurring Appointments Guide](./recurring-appointments.md)
 - [Contact Entity Documentation](https://learn.microsoft.com/en-us/dynamics365/customer-engagement/web-api/contact)
 - [Appointment Entity Documentation](https://learn.microsoft.com/en-us/dynamics365/customer-engagement/web-api/appointment)
 

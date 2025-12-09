@@ -104,7 +104,37 @@ Microsoft Entra ID (formerly Azure AD) is the recommended authentication method 
    - Grant API permissions for Dataverse
    - Copy Client ID and Client Secret to Power Pages
 
-4. **User Mapping**
+4. **Required API Permissions (Scopes)**
+
+   When configuring the app registration, you need to grant the following Microsoft Graph API permissions:
+
+   | Permission | Type | Description | Admin Consent Required |
+   |------------|------|-------------|----------------------|
+   | `Group.ReadWrite.All` | Application | Read and write all groups | Yes |
+   | `User.Invite.All` | Application | Invite guest users to the organization | Yes |
+   | `User.Read` | Delegated | Sign in and read user profile | No |
+   | `User.ReadWrite.All` | Application | Read and write all users' full profiles | Yes |
+
+   **Important Notes:**
+   - All permissions require **admin consent** to be granted (except `User.Read` which is delegated)
+   - After adding permissions, click **"Grant admin consent for [Your Organization]"** to approve all permissions
+   - These permissions enable Power Pages to:
+     - Authenticate users via Entra ID
+     - Read user profile information
+     - Invite guest users to the organization
+     - Manage group memberships (if needed)
+     - Create and link Contact records in Dataverse
+
+   **To add permissions:**
+   1. Navigate to **Azure Portal** → **App registrations** → Your app
+   2. Go to **API permissions**
+   3. Click **"Add a permission"**
+   4. Select **Microsoft Graph**
+   5. Choose **Application permissions** or **Delegated permissions** as specified above
+   6. Select the required permissions
+   7. Click **"Grant admin consent"** to approve all permissions
+
+5. **User Mapping**
    - Configure how Entra ID users map to Contact records
    - Options: Email match, User Principal Name (UPN), Custom claim
 

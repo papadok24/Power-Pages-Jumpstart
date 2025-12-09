@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.25101.159" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25101.159" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25104.00167">
+<ImportExportXml version="9.2.25101.159" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25101.159" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25104.00169">
   <SolutionManifest>
     <UniqueName>PowerPagesJumpstartAutomations</UniqueName>
     <LocalizedNames>
@@ -78,9 +78,22 @@
       </Addresses>
     </Publisher>
     <RootComponents>
+      <RootComponent type="29" id="{3fa25a4d-9ad4-f011-8543-0022480b8cfa}" behavior="0" />
       <RootComponent type="29" id="{98529747-60d1-f011-8543-000d3a5985ef}" behavior="0" />
     </RootComponents>
     <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="adx_externalidentity" displayName="External Identity" solution="PowerPages_RuntimeCore (1.0.2407.1)">
+          <package appName="Power Pages Core Package" version="1.1.2508.192">PowerPages_Core (1.1.2508.192)</package>
+        </Required>
+        <Dependent type="29" displayName="Handle Power Page Onboarding" id="{3fa25a4d-9ad4-f011-8543-0022480b8cfa}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="mspp_webrole" displayName="Web Role" solution="PowerPages_Apps (1.0.2509.3)">
+          <package appName="Power Pages Core Package" version="1.1.2508.192">PowerPages_Core (1.1.2508.192)</package>
+        </Required>
+        <Dependent type="29" displayName="Handle Power Page Onboarding" id="{3fa25a4d-9ad4-f011-8543-0022480b8cfa}" />
+      </MissingDependency>
       <MissingDependency>
         <Required type="1" schemaName="pa911_appointmentslot" displayName="Appointment Slot" solution="Active" />
         <Dependent type="29" displayName="Handle New Booking Request" id="{98529747-60d1-f011-8543-000d3a5985ef}" />
@@ -92,6 +105,20 @@
       <MissingDependency>
         <Required type="1" schemaName="pa911_pet" displayName="Pet" solution="Active" />
         <Dependent type="29" displayName="Handle New Booking Request" id="{98529747-60d1-f011-8543-000d3a5985ef}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="pa911_service" displayName="Service" solution="Active" />
+        <Dependent type="29" displayName="Handle New Booking Request" id="{98529747-60d1-f011-8543-000d3a5985ef}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="powerpagecomponent" displayName="Site Component" solution="PowerPages_CoreBase (1.1.2508.1)">
+          <package appName="Power Pages Core Package" version="1.1.2508.192">PowerPages_Core (1.1.2508.192)</package>
+        </Required>
+        <Dependent type="29" displayName="Handle Power Page Onboarding" id="{3fa25a4d-9ad4-f011-8543-0022480b8cfa}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="connectionreference" displayName="new_sharedoffice365_7ea08" solution="Active" id.connectionreferencelogicalname="new_sharedoffice365_7ea08" />
+        <Dependent type="29" displayName="Handle Power Page Onboarding" id="{3fa25a4d-9ad4-f011-8543-0022480b8cfa}" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>

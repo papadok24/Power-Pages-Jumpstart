@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="pa911_PPJPowerPageIdentityProvider">
+  <defaultvalue>https://sts.windows.net</defaultvalue>
+  <description default="Default value for Entra Id authentication">
+    <label description="Default value for Entra Id authentication" languagecode="1033" />
+  </description>
+  <displayname default="PPJ - Power Page Identity Provider">
+    <label description="PPJ - Power Page Identity Provider" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

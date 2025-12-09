@@ -108,6 +108,67 @@
               },
               "runAfter": {
                 "Create_new_contact_from_submission": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Create_Draft_Appointment": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "appointments",
+                  "item/scheduledend": "@outputs('Get_Appointment_Slot')?['body/pa911_endtime']",
+                  "item/scheduledstart": "@outputs('Get_Appointment_Slot')?['body/pa911_starttime']",
+                  "item/subject": "@{outputs('Create_new_pet_from_submission')?['body/pa911_name']} | @{outputs('Get_Service_Details')?['body/pa911_name']} | @{formatDateTime(outputs('Get_Appointment_Slot')?['body/pa911_starttime'],'dddd, MMMM dd yyyy h:mm tt')}",
+                  "item/isdraft": false,
+                  "item/regardingobjectid_pa911_pet_appointment@odata.bind": "pa911_pets(@{outputs('Create_new_pet_from_submission')?['body/pa911_petid']})",
+                  "item/pa911_servicestatus": 144400000,
+                  "item/statuscode": 2
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Create_new_pet_from_submission": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Mark_Appointment_Slot_Unavailable": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "pa911_appointmentslots",
+                  "recordId": "@outputs('Get_Appointment_Slot')?['body/pa911_appointmentslotid']",
+                  "item/pa911_isavailable": false
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "UpdateOnlyRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Create_Draft_Appointment": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Onboard_new_Contact": {
+              "type": "Workflow",
+              "inputs": {
+                "host": {
+                  "workflowReferenceName": "3fa25a4d-9ad4-f011-8543-0022480b8cfa"
+                },
+                "body": {
+                  "text": "@outputs('Create_new_contact_from_submission')?['body/contactid']"
+                }
+              },
+              "runAfter": {
+                "Mark_Appointment_Slot_Unavailable": [
                   "SUCCEEDED"
                 ]
               }
@@ -124,8 +185,27 @@
             }
           },
           "runAfter": {
+            "Get_Service_Details": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Get_Service_Details": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "pa911_services",
+              "recordId": "@triggerOutputs()?['body/_pa911_service_value']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
             "Get_Appointment_Slot": [
-              "SUCCEEDED"
+              "Succeeded"
             ]
           }
         }
