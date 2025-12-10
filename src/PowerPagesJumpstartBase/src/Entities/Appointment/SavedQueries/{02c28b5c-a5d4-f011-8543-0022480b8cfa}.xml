@@ -10,7 +10,7 @@
     <layoutxml>
       <grid name="resultset" jump="subject" select="1" icon="1" preview="1">
         <row name="result" id="activityid">
-          <cell name="subject" width="200" />
+          <cell name="subject" width="300" />
           <cell name="scheduledstart" width="132" />
           <cell name="scheduledend" width="137" />
           <cell name="pa911_pet" width="165" />
@@ -33,7 +33,6 @@
           <order attribute="scheduledstart" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
-            <condition attribute="statecode" operator="eq" value="3" />
           </filter>
         </entity>
       </fetch>
