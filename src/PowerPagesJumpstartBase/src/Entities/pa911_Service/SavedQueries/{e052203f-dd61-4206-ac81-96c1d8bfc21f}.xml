@@ -11,7 +11,9 @@
       <grid name="resultset" jump="pa911_name" select="1" icon="1" preview="1">
         <row name="result" id="pa911_serviceid">
           <cell name="pa911_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="pa911_description" width="217" />
+          <cell name="pa911_duration" width="100" />
+          <cell name="pa911_price" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +23,13 @@
         <entity name="pa911_service">
           <attribute name="pa911_serviceid" />
           <attribute name="pa911_name" />
-          <attribute name="createdon" />
           <order attribute="pa911_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="pa911_description" />
+          <attribute name="pa911_duration" />
+          <attribute name="pa911_price" />
         </entity>
       </fetch>
     </fetchxml>

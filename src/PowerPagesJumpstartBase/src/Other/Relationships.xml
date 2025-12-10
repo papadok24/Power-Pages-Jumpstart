@@ -23,8 +23,6 @@
   <EntityRelationship Name="pa911_bookingrequest_PreferredSlot_pa911_appointmentslot" />
   <EntityRelationship Name="pa911_bookingrequest_Service_pa911_service" />
   <EntityRelationship Name="pa911_pet_PetOwner_contact" />
-  <EntityRelationship Name="pa911_recurringappointmentmaster_Pet_pa911_pet" />
-  <EntityRelationship Name="pa911_recurringappointmentmaster_Service_pa911_service" />
   <EntityRelationship Name="team_pa911_appointmentslot" />
   <EntityRelationship Name="team_pa911_bookingrequest" />
   <EntityRelationship Name="team_pa911_pet" />

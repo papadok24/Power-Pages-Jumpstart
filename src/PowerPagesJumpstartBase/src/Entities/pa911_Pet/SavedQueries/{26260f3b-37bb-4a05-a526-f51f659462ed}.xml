@@ -10,8 +10,11 @@
     <layoutxml>
       <grid name="resultset" jump="pa911_name" select="1" icon="1" preview="1">
         <row name="result" id="pa911_petid">
-          <cell name="pa911_name" width="300" />
-          <cell name="createdon" width="125" />
+          <cell name="pa911_name" width="186" />
+          <cell name="pa911_species" width="174" />
+          <cell name="pa911_breed" width="100" />
+          <cell name="pa911_dateofbirth" width="114" />
+          <cell name="pa911_weight" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -21,11 +24,14 @@
         <entity name="pa911_pet">
           <attribute name="pa911_petid" />
           <attribute name="pa911_name" />
-          <attribute name="createdon" />
           <order attribute="pa911_name" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="pa911_species" />
+          <attribute name="pa911_breed" />
+          <attribute name="pa911_dateofbirth" />
+          <attribute name="pa911_weight" />
         </entity>
       </fetch>
     </fetchxml>
