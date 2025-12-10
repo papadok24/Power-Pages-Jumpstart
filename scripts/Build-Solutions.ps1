@@ -157,7 +157,7 @@ $buildErrors = @()
 foreach ($project in $solutionProjects) {
     $solutionName = $project.BaseName
     $projectDir = $project.DirectoryName
-    $zipPath = Join-Path $fullOutputPath "$solutionName`_managed.zip"
+    $zipPath = Join-Path $fullOutputPath "$solutionName`_$Version`_managed.zip"
     
     Write-Host "`n  Building $solutionName..." -ForegroundColor Yellow
     Write-Host "    Project: $($project.FullName)" -ForegroundColor Gray

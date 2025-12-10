@@ -12,6 +12,14 @@
   <CustomControls />
   <EntityDataProviders />
   <connectionreferences>
+    <connectionreference connectionreferencelogicalname="pa911_PPJOutlook">
+      <connectionreferencedisplayname>PPJ Outlook</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_office365</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
     <connectionreference connectionreferencelogicalname="pa911_sharedcommondataserviceforapps_e7cd2">
       <connectionreferencedisplayname>PPJ Dataverse</connectionreferencedisplayname>
       <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
