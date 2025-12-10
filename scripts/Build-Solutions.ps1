@@ -140,8 +140,8 @@ foreach ($project in $solutionProjects) {
 if ($versionUpdateErrors.Count -gt 0) {
     Write-Error "`nVersion update failed for $($versionUpdateErrors.Count) solution(s). Aborting build to prevent inconsistent state." -ErrorAction Stop
     Write-Host "`nErrors:" -ForegroundColor Red
-    foreach ($error in $versionUpdateErrors) {
-        Write-Host "  - $error" -ForegroundColor Red
+    foreach ($errorItem in $versionUpdateErrors) {
+        Write-Host "  - $errorItem" -ForegroundColor Red
     }
     exit 1
 }
@@ -243,8 +243,8 @@ if ($buildErrors.Count -eq 0) {
 } else {
     Write-Host "Status: Build completed with errors [FAIL]" -ForegroundColor Red
     Write-Host "`nErrors:" -ForegroundColor Red
-    foreach ($error in $buildErrors) {
-        Write-Host "  - $error" -ForegroundColor Red
+    foreach ($errorItem in $buildErrors) {
+        Write-Host "  - $errorItem" -ForegroundColor Red
     }
     exit 1
 }

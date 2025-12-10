@@ -723,6 +723,47 @@
             <Description description="" languagecode="1033" />
           </Descriptions>
         </attribute>
+        <attribute PhysicalName="pa911_PetPhoto">
+          <Type>image</Type>
+          <Name>pa911_petphoto</Name>
+          <LogicalName>pa911_petphoto</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>DenormalizedChild|PrimaryImage|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>disabled</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsLogical>1</IsLogical>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.0.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>0</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>0</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>jpeg</Format>
+          <MaxLength>9437328</MaxLength>
+          <MaxValue>30720</MaxValue>
+          <displaynames>
+            <displayname description="Pet Photo" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="" languagecode="1033" />
+          </Descriptions>
+        </attribute>
         <attribute PhysicalName="pa911_Species">
           <Type>picklist</Type>
           <Name>pa911_species</Name>
@@ -1039,7 +1080,7 @@
       <SyncToExternalSearchIndex>0</SyncToExternalSearchIndex>
       <IntroducedVersion>1.0</IntroducedVersion>
       <IsCustomizable>1</IsCustomizable>
-      <IsRenameable>1</IsRenameable>
+      <IsRenameable>0</IsRenameable>
       <IsMappable>1</IsMappable>
       <CanModifyAuditSettings>1</CanModifyAuditSettings>
       <CanModifyMobileVisibility>1</CanModifyMobileVisibility>
@@ -1052,17 +1093,17 @@
       <CanModifyQueueSettings>1</CanModifyQueueSettings>
       <CanCreateAttributes>1</CanCreateAttributes>
       <CanCreateForms>1</CanCreateForms>
-      <CanCreateCharts>1</CanCreateCharts>
+      <CanCreateCharts>0</CanCreateCharts>
       <CanCreateViews>1</CanCreateViews>
       <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
-      <CanEnableSyncToExternalSearchIndex>1</CanEnableSyncToExternalSearchIndex>
+      <CanEnableSyncToExternalSearchIndex>0</CanEnableSyncToExternalSearchIndex>
       <IconVectorName></IconVectorName>
       <EnforceStateTransitions>0</EnforceStateTransitions>
       <CanChangeHierarchicalRelationship>1</CanChangeHierarchicalRelationship>
       <EntityHelpUrlEnabled>0</EntityHelpUrlEnabled>
       <EntityHelpUrl></EntityHelpUrl>
       <ChangeTrackingEnabled>0</ChangeTrackingEnabled>
-      <CanChangeTrackingBeEnabled>1</CanChangeTrackingBeEnabled>
+      <CanChangeTrackingBeEnabled>0</CanChangeTrackingBeEnabled>
       <IsEnabledForExternalChannels>0</IsEnabledForExternalChannels>
       <IsMSTeamsIntegrationEnabled>0</IsMSTeamsIntegrationEnabled>
       <IsSolutionAware>0</IsSolutionAware>
